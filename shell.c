@@ -1,82 +1,67 @@
 #include "main.h"
 
-int main(int argc, char **argv)
+int main(int ac, char **argv)
 {
-	char prompt[] = "Myshell $ ";
+	char *prompt = "Myshell $ ";
 	char *lineptr = NULL;
-	char *lineptr_copy;
-	char msg2[] = "exit\n";
-	const char *delim = " \n";
-	char *token;
-	char **exec_args;
-	int num_tokens = 0;
-	int i;
+	char *line_copy = NULL;
+	size_t x = 0;
 	ssize_t nread;
-	size_t n = 0;
+	const char *delim = " \n";
+	int num_tokens = 0;
+	char *toks;
+	int n;
 
-	(void)argc;
-	(void)argv;
+	(void)ac;
 
 	while (1)
 	{
+		write(STDOUT_FILENO, prompt, strlen(prompt));
+		nread = getline(&lineptr, &x, stdin);
 
-		write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
-		nread = getline(&lineptr, &n, stdin);
+		if (nread == -1)
+		{
+			write(STDOUT_FILENO, "exit\n", strlen("exit\n"));
+			return (-1);
+		}
 
-	if (nread == -1)
-	{
-		write(STDOUT_FILENO, msg2, sizeof(msg2) - 1);
-		free(lineptr);
-		return -1;
-	}
+		line_copy = malloc(sizeof(char) * nread);
 
-	lineptr_copy = malloc(sizeof(char) * nread);
-	if (lineptr_copy == NULL)
-	{
-		perror("error");
-		return -1;
-	}
-	strcpy(lineptr_copy, lineptr);
+		if (line_copy == NULL)
+		{
+			perror("memory allocation err");
+			return (-1);
+		}
 
-	token = strtok(lineptr, delim);
+		strcpy(line_copy, lineptr);
 
-	while (token != NULL)
-	{
+		toks = strtok(lineptr, delim);
+
+		while (toks != NULL)
+		{
+			num_tokens++;
+			toks = strtok(NULL, delim);
+		}
 		num_tokens++;
-		token = strtok(NULL, delim);
+
+		argv = malloc(sizeof(char *) * num_tokens);
+
+		toks = strtok(line_copy, delim);
+
+		for (n = 0; toks != NULL; n++)
+		{
+			argv[n] = malloc(sizeof(char) * strlen(toks));
+			strcpy(argv[n], toks);
+
+			toks = strtok(NULL, delim);
+		}
+		argv[n] = NULL;
+
+		execmd(argv);
+
 	}
-	num_tokens++;
-
-	exec_args = malloc(sizeof(char *) * num_tokens);
-	if (exec_args == NULL)
-	{
-		perror("error");
-		return -1;
-	}
-
-	token = strtok(lineptr_copy, delim);
-
-	for (i = 0; token != NULL; i++)
-	{
-		exec_args[i] = malloc(sizeof(char) * (strlen(token) + 1));
-		strcpy(exec_args[i], token);
-
-		token = strtok(NULL, delim);
-	}
-	exec_args[i] = NULL;
-
-	execve(exec_args[0], exec_args, NULL);
-	perror("error");
-
-	for (i = 0; i < num_tokens; i++)
-	{
-		free(exec_args[i]);
-	}
-	free(exec_args);
-
-	write(STDOUT_FILENO, lineptr, nread);
-	}
-	
+	free(line_copy);
 	free(lineptr);
-	return 0;
+
+	return (0);
 }
