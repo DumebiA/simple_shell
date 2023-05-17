@@ -6,6 +6,6 @@
 #include <string.h>
 #include <unistd.h>
 
-void execmd(char **argv);
+void xcmd(char **argv);
 
 #endif

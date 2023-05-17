@@ -1,6 +1,11 @@
 #include "main.h"
 
-void execmd(char **argv)
+/*
+ * xcmd - provide your own environment variables
+ * @argv: argument variable
+ */
+
+void xcmd(char **argv)
 {
 	char *cmd = NULL;
 
