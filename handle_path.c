@@ -2,25 +2,25 @@
 
 char *get_location(char *cmd)
 {
-	char *p, *p_cp, *p_tok, *file_p;
-	int cmd_len, dirlen;
-	struct stat bufr;
-
-	p = getenv("PATH");
+	char *p = getenv("PATH");
 
 	if (p)
 	{
-		p_cp = strdup(p);
-		cmd_len = strlen(cmd);
-		p_tok = strtok(p_cp, ":");
+		char *p_cp = strdup(p);
+		int cmd_len = strlen(cmd);
+		struct stat bufr;
+		char *p_tok = strtok(p_cp, ":");
+
 		while (p_tok != NULL)
 		{
-			dirlen = strlen(p_tok);
-			file_p = malloc(cmd_len + dirlen + 2);
+			int dirlen = strlen(p_tok);
+			char *file_p = malloc(cmd_len + dirlen + 2);
+
 			strcpy(file_p, p_tok);
 			strcat(file_p, "/");
 			strcat(file_p, cmd);
 			strcat(file_p, "\0");
+
 			if (stat(file_p, &bufr) == 0)
 			{
 				free(p_cp);
