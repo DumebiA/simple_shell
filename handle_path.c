@@ -1,5 +1,11 @@
 #include "main.h"
 
+/**
+ * get_location - get the path location
+ * @PATH: argument
+ * Return: Always 0
+ */
+
 char *get_location(char *cmd)
 {
 	char *p = getenv("PATH");
