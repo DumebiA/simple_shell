@@ -7,9 +7,15 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <stddef.h>
 
 void excmd(char **argv);
 void parseInput(char *lineptr, char ***argv);
 char *get_location(char *cmd);
+void write_string(int fd, const char *str);
+size_t string_length(const char *str);
+size_t string_length(const char *str);
+int string_compare(const char *str1, const char *str2, size_t length);
+char *getenv_custom(const char *name);
 
-#endif
+#endif 
