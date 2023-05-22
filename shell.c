@@ -1,51 +1,24 @@
 #include "main.h"
 
-/**
- * excmd - function executes stored prompt
- * @argv: prompt command storage to be executed
- *
- * Return: the difference between final value of s and the initial value of str
- */
-
-void excmd(char **argv)
-{
-	char *cmd = NULL;
-	char *a_cmd = NULL;
-
-	if (argv)
-	{
-		cmd = argv[0];
-		a_cmd = get_location(cmd);
-
-		if (execve(a_cmd, argv, NULL) == -1)
-		{
-			perror("error message");
-		}
-	}
-}
-
-
-/**
- * main - Simple Shell (Hsh)
- * @argc: Argument Count
- * @argv:Argument Value
- * Return: Exit Value By Status
- */
-
 int main(int argc, char **argv)
 {
-	char *prompt = "Myshell $ ", *lineptr = NULL, *line_copy = NULL, *toks;
+	char *prompt = "Myshell $ ";
+	char *lineptr = NULL;
+	char *line_copy = NULL;
 	size_t x = 0;
 	ssize_t nread;
 	const char *delim = " \n";
-	int num_tokens = 0, pipe = 0, n;
+	int num_tokens = 0;
+	char *toks;
+	int pipe = 0;
+	int n;
 
 	(void)argc;
 
 	while (1 && !pipe)
 	{
-		if (isatty(STDIN_FILENO) == 0)
-			pipe = 1;
+                if (isatty(STDIN_FILENO) == 0)
+                        pipe = 1;
 
 		write(STDOUT_FILENO, prompt, strlen(prompt));
 		nread = getline(&lineptr, &x, stdin);
@@ -55,6 +28,7 @@ int main(int argc, char **argv)
 			write(STDOUT_FILENO, "exit\n", strlen("exit\n"));
 			return (-1);
 		}
+
 		line_copy = malloc(sizeof(char) * nread);
 
 		if (line_copy == NULL)
@@ -62,7 +36,9 @@ int main(int argc, char **argv)
 			perror("memory allocation err");
 			return (-1);
 		}
+
 		strcpy(line_copy, lineptr);
+
 		toks = strtok(lineptr, delim);
 
 		while (toks != NULL)
@@ -73,16 +49,20 @@ int main(int argc, char **argv)
 		num_tokens++;
 
 		argv = malloc(sizeof(char *) * num_tokens);
+
 		toks = strtok(line_copy, delim);
 
 		for (n = 0; toks != NULL; n++)
 		{
 			argv[n] = malloc(sizeof(char) * strlen(toks));
 			strcpy(argv[n], toks);
+
 			toks = strtok(NULL, delim);
 		}
 		argv[n] = NULL;
+
 		excmd(argv);
+
 	}
 	free(line_copy);
 	free(lineptr);
