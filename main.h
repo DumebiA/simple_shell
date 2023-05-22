@@ -9,6 +9,8 @@
 #include <sys/stat.h>
 #include <stddef.h>
 
+extern char **environ;
+
 void excmd(char **argv);
 void parseInput(char *lineptr, char ***argv);
 char *get_location(char *cmd);
@@ -18,4 +20,4 @@ size_t string_length(const char *str);
 int string_compare(const char *str1, const char *str2, size_t length);
 char *getenv_custom(const char *name);
 
-#endif 
+#endif
