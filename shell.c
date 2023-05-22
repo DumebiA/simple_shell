@@ -1,6 +1,25 @@
 #include "main.h"
 #include <stdlib.h>
 
+void excmd(char **argv)
+{
+        char *cmd = NULL;
+        char *a_cmd = NULL;
+
+        if (argv)
+        {
+                cmd = argv[0];
+                a_cmd = get_location(cmd);
+
+        if (execve(a_cmd, argv, NULL) == -1)
+        {
+            perror("error message");
+        }
+    }
+
+}
+
+
 /**
  * main - Simple Shell (Hsh)
  * @argc: Argument Count
@@ -8,90 +27,66 @@
  * Return: Exit Value By Status
  */
 
-void parseInput(char *lineptr, char ***argv)
-{
-	const char *delim = " \n";
-	int num_tokens = 0;
-	char *line_copy = NULL;
-	char *toks;
-	int n;
+int main(int argc, char **argv) {
+    char *prompt = "Myshell $ ";
+    char *lineptr = NULL;
+    char *line_copy = NULL;
+    size_t x = 0;
+    ssize_t nread;
+    const char *delim = " \n";
+    int num_tokens = 0;
+    char *toks;
+    int pipe = 0;
+    int n;
 
-	toks = strtok(lineptr, delim);
+    (void)argc;
 
-	while (toks != NULL)
-	{
-		num_tokens++;
-		toks = strtok(NULL, delim);
-	}
-	num_tokens++;
+    while (1 && !pipe) {
+        if (isatty(STDIN_FILENO) == 0)
+            pipe = 1;
 
-	*argv = malloc(sizeof(char *) * num_tokens);
+        write(STDOUT_FILENO, prompt, strlen(prompt));
+        nread = getline(&lineptr, &x, stdin);
 
-	line_copy = malloc(sizeof(char) * strlen(lineptr));
-	strcpy(line_copy, lineptr);
+        if (nread == -1) {
+            write(STDOUT_FILENO, "exit\n", strlen("exit\n"));
+            return (-1);
+        }
 
-	toks = strtok(line_copy, delim);
+        line_copy = malloc(sizeof(char) * nread);
 
-	for (n = 0; toks != NULL; n++)
-	{
-		(*argv)[n] = malloc(sizeof(char) * strlen(toks));
-		strcpy((*argv)[n], toks);
+        if (line_copy == NULL) {
+            perror("memory allocation err");
+            return (-1);
+        }
 
-		toks = strtok(NULL, delim);
-	}
-	(*argv)[n] = NULL;
+        strcpy(line_copy, lineptr);
 
-	free(line_copy);
-}
+        toks = strtok(lineptr, delim);
 
-void excmd(char **argv)
-{
-	char *cmd = NULL, *a_cmd = NULL;
+        while (toks != NULL) {
+            num_tokens++;
+            toks = strtok(NULL, delim);
+        }
+        num_tokens++;
 
-	if (argv)
-	{
-		cmd = argv[0];
-		a_cmd = get_location(cmd);
+        argv = malloc(sizeof(char *) * num_tokens);
 
-		if (execve(a_cmd, argv, NULL) == -1)
-		{
-			perror("err");
-		}
-	}
-}
+        toks = strtok(line_copy, delim);
 
-int main(int argc, char **argv)
-{
-	char *prompt = "Myshell $ ";
-	char *lineptr = NULL;
-	char **args = NULL;
-	size_t x = 0;
-	ssize_t nread;
-	int pipe = 0;
+        for (n = 0; toks != NULL; n++) {
+            argv[n] = malloc(sizeof(char) * strlen(toks));
+            strcpy(argv[n], toks);
 
-	(void)argc;
-	(void)argv;
+            toks = strtok(NULL, delim);
+        }
+        argv[n] = NULL;
 
-	while (1 && !pipe)
-	{
-		if (isatty(STDIN_FILENO) == 0)
-			pipe = 1;
-		write(STDOUT_FILENO, prompt, strlen(prompt));
-		nread = getline(&lineptr, &x, stdin);
+        excmd(argv);
+    }
 
-		if (nread == -1)
-		{
-			write(STDOUT_FILENO, "exit\n", strlen("exit\n"));
-			return (-1);
-		}
+    free(line_copy);
+    free(lineptr);
 
-		parseInput(lineptr, &args);
-
-		excmd(args);
-	}
-
-	free(args);
-	free(lineptr);
-
-	return (0);
+    return (0);
 }
