@@ -13,9 +13,9 @@
 extern char **environ;
 
 
-void promptLoop();
+void promptLoop(void);
 
-char *readInput();
+char *readInput(void);
 void executeCommand(char **args);
 void freeTokens(char **tokens);
 

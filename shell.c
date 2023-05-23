@@ -1,8 +1,18 @@
 #include "main.h"
 
+/**
+ * main - prints promts and creates simple shell if there is no error
+ *
+ * @argc: argument int
+ * @argv: argument variable
+ *
+ * Return: free variables and return 0 if process is successful
+ *
+ */
+
 int main(int argc, char **argv)
 {
-	char *prompt = "Myshell $ ";
+	char *prompt = "($) ";
 	char *lineptr = NULL;
 	char *line_copy = NULL;
 	size_t x = 0;
@@ -13,14 +23,14 @@ int main(int argc, char **argv)
 	int pipe = 0;
 	int n;
 	int status;
-	pid_t mypid;
+	pid_t pid;
 
 	(void)argc;
 
 	while (1 && !pipe)
 	{
-                if (isatty(STDIN_FILENO) == 0)
-                        pipe = 1;
+		if (isatty(STDIN_FILENO) == 0)
+			pipe = 1;
 
 		write(STDOUT_FILENO, prompt, strlen(prompt));
 		nread = getline(&lineptr, &x, stdin);
@@ -56,38 +66,41 @@ int main(int argc, char **argv)
 
 		for (n = 0; toks != NULL; n++)
 		{
-			argv[n] = malloc(sizeof(char) * strlen(toks));
+			argv[n] = malloc(sizeof(char) * (strlen(toks) + 1));
 			strcpy(argv[n], toks);
 
 			toks = strtok(NULL, delim);
 		}
 		argv[n] = NULL;
 
-		mypid = fork();
+		if (strcmp(argv[0], "exit") == 0)
+		{
+			for (n = 0; n < num_tokens - 1; n++)
+			{
+				free(argv[n]);
+			}
+			return (0);
+		}
 
-		if (mypid < 0)
+		pid = fork();
+
+		if (pid < 0)
 		{
 			perror("fork failed");
 			exit(EXIT_FAILURE);
 		}
-		else if (mypid == 0)
+		else if (pid == 0)
 		{
 			excmd(argv);
 			exit(EXIT_SUCCESS);
 		}
 		else
 		{
-			waitpid(mypid, &status, 0);
-		}
-
-		for (n = 0; n < num_tokens - 1; n++)
-		{
-			free(argv[n]);
+			waitpid(pid, &status, 0);
 		}
 	}
 	free(argv);
 	free(line_copy);
 	free(lineptr);
-
 	return (0);
 }
