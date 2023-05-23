@@ -8,11 +8,18 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <stddef.h>
+#include <sys/wait.h>
 
 extern char **environ;
 
+
+void promptLoop();
+
+char *readInput();
+void executeCommand(char **args);
+void freeTokens(char **tokens);
+
 void excmd(char **argv);
-void parseInput(char *lineptr, char ***argv);
 char *get_location(char *cmd);
 void write_string(int fd, const char *str);
 size_t string_length(const char *str);

@@ -12,6 +12,8 @@ int main(int argc, char **argv)
 	char *toks;
 	int pipe = 0;
 	int n;
+	int status;
+	pid_t mypid;
 
 	(void)argc;
 
@@ -61,9 +63,29 @@ int main(int argc, char **argv)
 		}
 		argv[n] = NULL;
 
-		excmd(argv);
+		mypid = fork();
 
+		if (mypid < 0)
+		{
+			perror("fork failed");
+			exit(EXIT_FAILURE);
+		}
+		else if (mypid == 0)
+		{
+			excmd(argv);
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			waitpid(mypid, &status, 0);
+		}
+
+		for (n = 0; n < num_tokens - 1; n++)
+		{
+			free(argv[n]);
+		}
 	}
+	free(argv);
 	free(line_copy);
 	free(lineptr);
 
