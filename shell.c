@@ -2,26 +2,31 @@
 
 /**
  * input_prompt - displays prompt to be inputed
+ *
  */
 
-void input_prompt()
+void input_prompt(void)
 {
 	char prompt[] = "($) ";
+
 	write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
 }
 
 /**
  * get_line - reads commands basically
+ *
+ * Return: returns the read command if sucessful
+ *
  */
 
-char* get_line()
+char *get_line(void)
 {
 	size_t length = 0;
 	ssize_t nreads;
 	size_t input_size = MAX_COMMAND_LENGTH;
-	char* cmd;
+	char *cmd;
 
-	cmd = (char*)malloc(input_size * sizeof(char));
+	cmd = (char *)malloc(input_size * sizeof(char));
 
 	nreads = getline(&cmd, &input_size, stdin);
 
@@ -49,16 +54,17 @@ char* get_line()
  * Return: the difference between final value of s and the initial value of str
  */
 
-void excmd(char* command)
+void excmd(char *command)
 {
 	pid_t pid;
-	char* args[2];
+	char *args[2];
 
 	pid = fork();
 
 	if (pid < 0)
 	{
 		char error[] = "child process failed\n";
+
 		write(STDERR_FILENO, error, sizeof(error) - 1);
 		return;
 	}
@@ -71,6 +77,7 @@ void excmd(char* command)
 		if (execve(command, args, NULL) == -1)
 		{
 			char error[] = "./hsh: not found\n";
+
 			write(STDERR_FILENO, error, sizeof(error) - 1);
 			exit(1);
 		}
@@ -87,9 +94,10 @@ void excmd(char* command)
  * Return: 0 if successful
  */
 
-int main()
+int main(void)
 {
-	char* cmd;
+	char *cmd;
+
 	while (1)
 	{
 		input_prompt();
@@ -99,11 +107,11 @@ int main()
 		if (!cmd)
 		{
 			write(STDOUT_FILENO, "\n", 1);
-            	break;
+			break;
 		}
 
 		excmd(cmd);
 		free(cmd);
 	}
-	return 0;
+	return (0);
 }
