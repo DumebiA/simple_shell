@@ -11,7 +11,7 @@
 #include <sys/wait.h>
 
 extern char **environ;
-
+#define MAX_COMMAND_LENGTH 100
 
 void promptLoop(void);
 

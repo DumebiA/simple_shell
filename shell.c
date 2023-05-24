@@ -1,99 +1,74 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <string.h>
+#include "main.h"
 
-void display_prompt()
-{
-	char prompt[] = "$ ";
-	write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
+void display_prompt() {
+    char prompt[] = "$ ";
+    write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
 }
 
-char* read_command()
-{
-	char* command = NULL;
-	size_t inputsize = 0;
-	size_t length = 0;
-	ssize_t nread;
+char* read_command() {
+    ssize_t read_size;
+    size_t input_size = MAX_COMMAND_LENGTH;
+    char* command = (char*)malloc(input_size * sizeof(char));
 
-	nread = getline(&command, &inputsize, stdin);
+    read_size = getline(&command, &input_size, stdin);
 
-	if (nread == -1)
-	{
-		free(command);
-		command = NULL;
-	}
-	else
-	{
+    if (read_size == -1) {
+        free(command);
+        command = NULL;
+    } else {
+        size_t length = 0;
+        while (command[length] != '\n' && command[length] != '\0') {
+            length++;
+        }
+        command[length] = '\0';
+    }
 
-	while (command[length] != '\n' && command[length] != '\0')
-	{
-		length++;
-	}
-
-	if (command[length - 1] == '\n')
-	{
-		command[length - 1] = '\0';
-	}
+    return command;
 }
 
-	return (command);
+void execute_command(char* command) {
+    pid_t pid = fork();
+
+    if (pid < 0) {
+
+        char error[] = "Failed to create child process\n";
+        write(STDERR_FILENO, error, sizeof(error) - 1);
+        return;
+    }
+
+    if (pid == 0) {
+
+        char* args[2];
+        args[0] = command;
+        args[1] = NULL;
+        if (execve(command, args, NULL) == -1) {
+            char error[] = "Failed to execute command\n";
+            write(STDERR_FILENO, error, sizeof(error) - 1);
+            exit(1);
+        }
+    } else {
+
+        wait(NULL);
+    }
 }
 
-void execute_command(char* command)
-{
-	pid_t pid = fork();
+int main() {
+           char* command;
+    while (1) {
+        display_prompt();
 
-	if (pid < 0)
-	{
+        command = read_command();
 
-		char error[] = "Failed to create child process\n";
-		write(STDERR_FILENO, error, sizeof(error) - 1);
-		return;
-	}
+        if (!command) {
 
-	if (pid == 0)
-	{
+            write(STDOUT_FILENO, "\n", 1);
+            break;
+        }
 
-		char* args[2];
-		args[0] = command;
-		args[1] = NULL;
-		
-		if (execve(command, args, NULL) == -1)
-		{
-			char error[] = "Failed to execute command\n";
-			write(STDERR_FILENO, error, sizeof(error) - 1);
-			exit(1);
-		}
-	}
-	else
-	{
+        execute_command(command);
+        free(command);
+    }
 
-		wait(NULL);
-	}
+    return 0;
 }
 
-int main()
-{
-	char* cmd;
-
-	while (1)
-	{
-		display_prompt();
-
-		cmd = read_command();
-
-		if (!cmd)
-	{
-
-		write(STDOUT_FILENO, "\n", 1);
-			break;
-	}
-
-	execute_command(cmd);
-	free(cmd);
-	}
-
-	return (0);
-}
