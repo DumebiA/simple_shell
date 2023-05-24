@@ -1,74 +1,109 @@
 #include "main.h"
 
-void display_prompt() {
-    char prompt[] = "$ ";
-    write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
+/**
+ * input_prompt - displays prompt to be inputed
+ */
+
+void input_prompt()
+{
+	char prompt[] = "($) ";
+	write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
 }
 
-char* read_command() {
-    ssize_t read_size;
-    size_t input_size = MAX_COMMAND_LENGTH;
-    char* command = (char*)malloc(input_size * sizeof(char));
+/**
+ * get_line - reads commands basically
+ */
 
-    read_size = getline(&command, &input_size, stdin);
+char* get_line()
+{
+	size_t length = 0;
+	ssize_t nreads;
+	size_t input_size = MAX_COMMAND_LENGTH;
+	char* cmd;
 
-    if (read_size == -1) {
-        free(command);
-        command = NULL;
-    } else {
-        size_t length = 0;
-        while (command[length] != '\n' && command[length] != '\0') {
-            length++;
-        }
-        command[length] = '\0';
-    }
+	cmd = (char*)malloc(input_size * sizeof(char));
 
-    return command;
+	nreads = getline(&cmd, &input_size, stdin);
+
+	if (nreads == -1)
+	{
+		free(cmd);
+		cmd = NULL;
+	}
+	else
+	{
+		while (cmd[length] != '\n' && cmd[length] != '\0')
+		{
+			length++;
+		}
+		cmd[length] = '\0';
+	}
+
+	return (cmd);
 }
 
-void execute_command(char* command) {
-    pid_t pid = fork();
+/**
+ * excmd - function executes stored prompt
+ * @command: prompt command storage to be executed
+ *
+ * Return: the difference between final value of s and the initial value of str
+ */
 
-    if (pid < 0) {
+void excmd(char* command)
+{
+	pid_t pid;
+	char* args[2];
 
-        char error[] = "Failed to create child process\n";
-        write(STDERR_FILENO, error, sizeof(error) - 1);
-        return;
-    }
+	pid = fork();
 
-    if (pid == 0) {
+	if (pid < 0)
+	{
+		char error[] = "child process failed\n";
+		write(STDERR_FILENO, error, sizeof(error) - 1);
+		return;
+	}
 
-        char* args[2];
-        args[0] = command;
-        args[1] = NULL;
-        if (execve(command, args, NULL) == -1) {
-            char error[] = "Failed to execute command\n";
-            write(STDERR_FILENO, error, sizeof(error) - 1);
-            exit(1);
-        }
-    } else {
+	if (pid == 0)
+	{
+		args[0] = command;
+		args[1] = NULL;
 
-        wait(NULL);
-    }
+		if (execve(command, args, NULL) == -1)
+		{
+			char error[] = "./hsh: not found\n";
+			write(STDERR_FILENO, error, sizeof(error) - 1);
+			exit(1);
+		}
+	}
+	else
+	{
+		wait(NULL);
+	}
 }
 
-int main() {
-           char* command;
-    while (1) {
-        display_prompt();
+/**
+ * main - prints main function
+ *
+ * Return: 0 if successful
+ */
 
-        command = read_command();
+int main()
+{
+	char* cmd;
+	while (1)
+	{
+		input_prompt();
 
-        if (!command) {
+		cmd = get_line();
 
-            write(STDOUT_FILENO, "\n", 1);
-            break;
-        }
+		if (!cmd)
+		{
+			write(STDOUT_FILENO, "\n", 1);
+            	break;
+		}
 
-        execute_command(command);
-        free(command);
-    }
-
-    return 0;
+		excmd(cmd);
+		free(cmd);
+	}
+	return 0;
 }
-
