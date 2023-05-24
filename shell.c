@@ -1,67 +1,99 @@
-#include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <string.h>
 
-int main(int argc, char **argv)
+void display_prompt()
 {
-    char *prompt = "($) ";
-    char *lineptr = NULL;
-    char *line_copy = NULL;
-    size_t x = 0;
-    ssize_t nread;
-    const char *delim = " \n";
-    int num_tokens = 0;
-    char *toks;
-    int n;
+	char prompt[] = "$ ";
+	write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
+}
 
-    (void)argc;
+char* read_command()
+{
+	char* command = NULL;
+	size_t inputsize = 0;
+	size_t length = 0;
+	ssize_t nread;
 
-    while (1)
-    {
-        write(STDOUT_FILENO, prompt, strlen(prompt));
-        nread = getline(&lineptr, &x, stdin);
+	nread = getline(&command, &inputsize, stdin);
 
-        if (nread == -1)
-        {
-            write(STDOUT_FILENO, "exit\n", strlen("exit\n"));
-            return (-1);
-        }
+	if (nread == -1)
+	{
+		free(command);
+		command = NULL;
+	}
+	else
+	{
 
-        line_copy = malloc(sizeof(char) * nread);
+	while (command[length] != '\n' && command[length] != '\0')
+	{
+		length++;
+	}
 
-        if (line_copy == NULL)
-        {
-            perror("err: not found");
-            return (-1);
-        }
+	if (command[length - 1] == '\n')
+	{
+		command[length - 1] = '\0';
+	}
+}
 
-        strcpy(line_copy, lineptr);
+	return (command);
+}
 
-        toks = strtok(lineptr, delim);
+void execute_command(char* command)
+{
+	pid_t pid = fork();
 
-        while (toks != NULL)
-        {
-            num_tokens++;
-            toks = strtok(NULL, delim);
-        }
-        num_tokens++;
+	if (pid < 0)
+	{
 
-        argv = malloc(sizeof(char *) * num_tokens);
+		char error[] = "Failed to create child process\n";
+		write(STDERR_FILENO, error, sizeof(error) - 1);
+		return;
+	}
 
-        toks = strtok(line_copy, delim);
+	if (pid == 0)
+	{
 
-        for (n = 0; toks != NULL; n++)
-        {
-            argv[n] = malloc(sizeof(char) * strlen(toks));
-            strcpy(argv[n], toks);
+		char* args[2];
+		args[0] = command;
+		args[1] = NULL;
+		
+		if (execve(command, args, NULL) == -1)
+		{
+			char error[] = "Failed to execute command\n";
+			write(STDERR_FILENO, error, sizeof(error) - 1);
+			exit(1);
+		}
+	}
+	else
+	{
 
-            toks = strtok(NULL, delim);
-        }
-        argv[n] = NULL;
+		wait(NULL);
+	}
+}
 
-        excmd(argv);
-    }
+int main()
+{
+	char* cmd;
 
-    free(line_copy);
-    free(lineptr);
+	while (1)
+	{
+		display_prompt();
 
-    return (0);
+		cmd = read_command();
+
+		if (!cmd)
+	{
+
+		write(STDOUT_FILENO, "\n", 1);
+			break;
+	}
+
+	execute_command(cmd);
+	free(cmd);
+	}
+
+	return (0);
 }
