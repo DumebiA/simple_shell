@@ -2,6 +2,7 @@
 
 /**
  * input_prompt - displays prompt to be inputed
+ * Return: 0
  *
  */
 
