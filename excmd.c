@@ -2,14 +2,15 @@
 
 /**
  * excmd - function executes stored prompt
- * @args: command and arguments to be executed
+ * @args: prompt command storage to be executed
  *
- * Return: None
+ * Return: the difference between final value of s and the initial value of str
  */
 
 void excmd(char **args)
 {
 	pid_t pid;
+	int status;
 
 	pid = fork();
 
@@ -22,8 +23,7 @@ void excmd(char **args)
 
 	if (pid == 0)
 	{
-		char *envp[] = {NULL};
-		if (execve(args[0], args, envp) == -1)
+		if (execve(args[0], args, NULL) == -1)
 		{
 			char error[] = "./hsh: command not found\n";
 			write(STDERR_FILENO, error, sizeof(error) - 1);
@@ -32,16 +32,14 @@ void excmd(char **args)
 	}
 	else
 	{
-		int status;
-		waitpid(pid, &status, 0);
+		wait(&status);
 		if (WIFEXITED(status))
 		{
-			int exit_status = WEXITSTATUS(status);
-			if (exit_status != 0)
-			{
-				char error[] = "command failed\n";
-				write(STDERR_FILENO, error, sizeof(error) - 1);
-			}
+			status = WEXITSTATUS(status);
+		}
+		else
+		{
+			status = 1;
 		}
 	}
 }

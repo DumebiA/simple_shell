@@ -1,20 +1,19 @@
 #include "main.h"
 
 /**
- * string_compare - function executes stored prompt
- * @cmd1: command 1
- * @cmd2: command 2
+ * string_compare - function compares string
+ * @cmd1: prompt command storage to be executed
  *
  * Return: return comparism between commands
  */
 
-int string_compare(const char* cmd1, const char* cmd2)
+int string_compare(const char *cmd1, const char *cmd2)
 {
 	while (*cmd1 != '\0' && *cmd2 != '\0')
 	{
 		if (*cmd1 != *cmd2)
 		{
-			return 0;
+			return (0);
 		}
 		cmd1++;
 		cmd2++;
@@ -26,18 +25,15 @@ int string_compare(const char* cmd1, const char* cmd2)
  * input_prompt - displays prompt to be inputed
  */
 
-void input_prompt()
+void input_prompt(void)
 {
 	char prompt[] = "($) ";
-	write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
+	write(STDERR_FILENO, prompt, sizeof(prompt) - 1);
 }
 
 /**
  * parse - parsing and tokenization
- * @command: input command to parse
- * @num_args: pointer to store the number of arguments
- *
- * Return: array of arguments
+ * @num_args: arguments
  */
 
 char **parse(char *command, int *num_args)
@@ -53,15 +49,14 @@ char **parse(char *command, int *num_args)
 		index++;
 		tok = strtok(NULL, " \t\n");
 	}
-
 	args[index] = NULL;
 	*num_args = index;
 
-	return args;
+	return (args);
 }
 
 /**
- * main - prints main function
+ * main - shell main function
  *
  * Return: 0 if successful
  */
@@ -89,16 +84,20 @@ int main(void)
 
 		if (string_compare(command, "exit"))
 		{
+		break;
+	}
+
+	args = parse(command, &num_args);
+
+	if (num_args > 0)
+	{
+		if (string_compare(args[0], "exit"))
+		{
 			break;
 		}
-
-		args = parse(command, &num_args);
-
-		if (num_args > 0)
-		{
-			excmd(args);
-		}
-		free(args);
+		excmd(args);
 	}
-	return 0;
+	free(args);
+	}
+	return (0);
 }
