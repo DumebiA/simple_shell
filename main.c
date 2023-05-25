@@ -33,13 +33,17 @@ void input_prompt()
 }
 
 /**
- * parse - paring and tokenization
+ * parse - parsing and tokenization
+ * @command: input command to parse
+ * @num_args: pointer to store the number of arguments
+ *
+ * Return: array of arguments
  */
 
-char** parse(char* command, int* num_args)
+char **parse(char *command, int *num_args)
 {
-	char** args = (char**)malloc((MAX_ARGS + 1) * sizeof(char*));
-	char* tok;
+	char **args = (char **)malloc((MAX_ARGS + 1) * sizeof(char *));
+	char *tok;
 	int index = 0;
 
 	tok = strtok(command, " \t\n");
@@ -49,6 +53,7 @@ char** parse(char* command, int* num_args)
 		index++;
 		tok = strtok(NULL, " \t\n");
 	}
+
 	args[index] = NULL;
 	*num_args = index;
 
@@ -61,12 +66,12 @@ char** parse(char* command, int* num_args)
  * Return: 0 if successful
  */
 
-int main()
+int main(void)
 {
 	char command[MAX_COMMAND_LENGTH];
 	ssize_t nreads;
 	int num_args;
-	char** args;
+	char **args;
 
 	while (1)
 	{
@@ -97,4 +102,3 @@ int main()
 	}
 	return 0;
 }
-
