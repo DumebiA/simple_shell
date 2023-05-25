@@ -1,8 +1,9 @@
 #include "main.h"
 
 /**
- * excmd - function executes stored prompt
- * @command: prompt command storage to be executed
+ * string_compare - function executes stored prompt
+ * @cmd1: command 1
+ * @cmd2: command 2
  *
  * Return: return comparism between commands
  */

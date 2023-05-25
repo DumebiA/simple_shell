@@ -2,35 +2,46 @@
 
 /**
  * excmd - function executes stored prompt
- * @command: prompt command storage to be executed
+ * @args: command and arguments to be executed
  *
- * Return: the difference between final value of s and the initial value of str
+ * Return: None
  */
 
-void excmd(char** args)
+void excmd(char **args)
 {
-	pid_t pid;
+        pid_t pid;
 
-	pid = fork();
+        pid = fork();
 
-	if (pid < 0)
-	{
-		char error[] = "child process failed\n";
-		write(STDERR_FILENO, error, sizeof(error) - 1);
-		return;
-	}
+        if (pid < 0)
+        {
+                char error[] = "child process failed\n";
+                write(STDERR_FILENO, error, sizeof(error) - 1);
+                return;
+        }
 
-	if (pid == 0)
-	{
-		if (execve(args[0], args, NULL) == -1)
-		{
-			char error[] = "./hsh: command not found\n";
-			write(STDERR_FILENO, error, sizeof(error) - 1);
-			exit(1);
-		}
-	}
-	else
-	{
-		wait(NULL);
-	}
+        if (pid == 0)
+        {
+                char *envp[] = {NULL};
+                if (execve(args[0], args, envp) == -1)
+                {
+                        char error[] = "./hsh: command not found\n";
+                        write(STDERR_FILENO, error, sizeof(error) - 1);
+                        exit(1);
+                }
+		        }
+        else
+        {
+                int status;
+                waitpid(pid, &status, 0);
+                if (WIFEXITED(status))
+                {
+                        int exit_status = WEXITSTATUS(status);
+                        if (exit_status != 0)
+                        {
+                                char error[] = "command failed\n";
+                                write(STDERR_FILENO, error, sizeof(error) - 1);
+                        }
+                }
+        }
 }
