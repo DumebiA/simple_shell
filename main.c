@@ -1,23 +1,22 @@
 #include "main.h"
 /**
- * string_compare - function compare strings and commands
- * @cmd1: command 1
- * @cmd2: command 2
+ * excmd - function executes stored prompt
+ * @command: prompt command storage to be executed
  *
  * Return: return comparism between commands
  */
 
-int string_compare(const char *cmd1, const char *cmd2)
+int string_compare(const char* cmd1, const char* cmd2)
 {
 	while (*cmd1 != '\0' && *cmd2 != '\0')
 	{
 		if (*cmd1 != *cmd2)
 		{
-			return (0);
+			return 0;
 		}
-			cmd1++;
-			cmd2++;
-		}
+		cmd1++;
+		cmd2++;
+	}
 	return (*cmd1 == '\0' && *cmd2 == '\0');
 }
 
@@ -25,25 +24,20 @@ int string_compare(const char *cmd1, const char *cmd2)
  * input_prompt - displays prompt to be inputed
  */
 
-void input_prompt(void)
+void input_prompt()
 {
 	char prompt[] = "($) ";
-
 	write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
 }
 
 /**
  * parse - paring and tokenization
- * @command: as name implies
- * @num_args: numerical variable
- *
- * Return: return the args if successful
  */
 
-char **parse(char *command, int *num_args)
+char** parse(char* command, int* num_args)
 {
-	char **args = (char **)malloc((MAX_ARGS + 1) * sizeof(char *));
-	char *tok;
+	char** args = (char**)malloc((MAX_ARGS + 1) * sizeof(char*));
+	char* tok;
 	int index = 0;
 
 	tok = strtok(command, " \t\n");
@@ -56,17 +50,17 @@ char **parse(char *command, int *num_args)
 	args[index] = NULL;
 	*num_args = index;
 
-	return (args);
+	return args;
 }
 
 /**
  * excmd - function executes stored prompt
- * @args: prompt command storage to be executed
+ * @command: prompt command storage to be executed
  *
  * Return: the difference between final value of s and the initial value of str
  */
 
-void excmd(char **args)
+void excmd(char** args)
 {
 	pid_t pid;
 
@@ -75,7 +69,6 @@ void excmd(char **args)
 	if (pid < 0)
 	{
 		char error[] = "child process failed\n";
-
 		write(STDERR_FILENO, error, sizeof(error) - 1);
 		return;
 	}
@@ -85,7 +78,6 @@ void excmd(char **args)
 		if (execve(args[0], args, NULL) == -1)
 		{
 			char error[] = "./hsh: command not found\n";
-
 			write(STDERR_FILENO, error, sizeof(error) - 1);
 			exit(1);
 		}
@@ -102,12 +94,12 @@ void excmd(char **args)
  * Return: 0 if successful
  */
 
-int main(void)
+int main()
 {
 	char command[MAX_COMMAND_LENGTH];
 	ssize_t nreads;
 	int num_args;
-	char **args;
+	char** args;
 
 	while (1)
 	{
@@ -136,5 +128,5 @@ int main(void)
 		}
 		free(args);
 	}
-	return (0);
+	return 0;
 }
