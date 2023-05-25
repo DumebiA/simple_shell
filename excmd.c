@@ -1,3 +1,5 @@
+#include "main.h"
+
 /**
  * excmd - function executes stored prompt
  * @command: prompt command storage to be executed
