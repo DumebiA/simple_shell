@@ -10,9 +10,9 @@
 #include <stddef.h>
 #include <sys/wait.h>
 
-extern char **environ;
 #define MAX_COMMAND_LENGTH 100
 #define MAX_ARGS 10
 
+void excmd(char **args);
 
 #endif
