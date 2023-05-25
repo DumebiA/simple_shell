@@ -12,6 +12,10 @@
 
 extern char **environ;
 #define MAX_COMMAND_LENGTH 100
+void input_prompt(void);
+char *get_line(void);
+void excmd(char *command);
+int main(void);
 
 
 #endif
