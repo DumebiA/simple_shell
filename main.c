@@ -1,111 +1,90 @@
-#include "main.h"
-
+#include "shell.h"
 
 /**
- * Function to compare two strings
+ * main - Simple Shell (Hsh)
+ * @argc: Argument Count
+ * @argv:Argument Value
+ * Return: Exit Value By Status
  */
-int string_compare(const char *str1, const char *str2)
+
+int main(__attribute__((unused)) int argc, char **argv)
 {
-    while (*str1 != '\0' && *str2 != '\0')
-    {
-        if (*str1 != *str2)
-        {
-            return 0;
-        }
-        str1++;
-        str2++;
-    }
-    return (*str1 == '\0' && *str2 == '\0');
+	char *input, **cmd;
+	int counter = 0, statue = 1, st = 0;
+
+	if (argv[1] != NULL)
+		read_file(argv[1], argv);
+	signal(SIGINT, signal_to_handel);
+	while (statue)
+	{
+		counter++;
+		if (isatty(STDIN_FILENO))
+			prompt();
+		input = _getline();
+		if (input[0] == '\0')
+		{
+			continue;
+		}
+		history(input);
+		cmd = parse_cmd(input);
+		if (_strcmp(cmd[0], "exit") == 0)
+		{
+			exit_bul(cmd, input, argv, counter);
+		}
+		else if (check_builtin(cmd) == 0)
+		{
+			st = handle_builtin(cmd, st);
+			free_all(cmd, input);
+			continue;
+		}
+		else
+		{
+			st = check_cmd(cmd, input, counter, argv);
+
+		}
+		free_all(cmd, input);
+	}
+	return (statue);
 }
-
 /**
- * Function to print the current environment
+ * check_builtin - check builtin
+ *
+ * @cmd:command to check
+ * Return: 0 Succes -1 Fail
  */
-void print_env()
+int check_builtin(char **cmd)
 {
-    extern char **environ;
-    int i = 0;
-    while (environ[i] != NULL)
-    {
-        write(STDOUT_FILENO, environ[i], strlen(environ[i]));
-        write(STDOUT_FILENO, "\n", 1);
-        i++;
-    }
+	bul_t fun[] = {
+		{"cd", NULL},
+		{"help", NULL},
+		{"echo", NULL},
+		{"history", NULL},
+		{NULL, NULL}
+	};
+	int i = 0;
+		if (*cmd == NULL)
+	{
+		return (-1);
+	}
+
+	while ((fun + i)->command)
+	{
+		if (_strcmp(cmd[0], (fun + i)->command) == 0)
+			return (0);
+		i++;
+	}
+	return (-1);
 }
-
 /**
- * Function to display the input prompt
+ * creat_envi - Creat Array of Enviroment Variable
+ * @envi: Array of Enviroment Variable
+ * Return: Void
  */
-void input_prompt()
+void creat_envi(char **envi)
 {
-    char prompt[] = "($) ";
-    write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
-}
+	int i;
 
-/**
- * Function to parse the command and tokenize it
- */
-char **parse(char *command, int *num_args)
-{
-    char **args = (char **)malloc((MAX_ARGS + 1) * sizeof(char *));
-    char *tok;
-    int index = 0;
-
-    tok = strtok(command, " \t\n");
-    while (tok != NULL)
-    {
-        args[index] = tok;
-        index++;
-        tok = strtok(NULL, " \t\n");
-    }
-    args[index] = NULL;
-    *num_args = index;
-
-    return args;
-}
-
-/**
- * Main function
- */
-int main()
-{
-    char command[MAX_COMMAND_LENGTH];
-    ssize_t nreads;
-    int num_args;
-    char **args;
-
-    while (1)
-    {
-        input_prompt();
-
-        nreads = read(STDIN_FILENO, command, sizeof(command));
-
-        if (nreads <= 0)
-        {
-            write(STDOUT_FILENO, "\n", 1);
-            break;
-        }
-
-        command[nreads - 1] = '\0';
-
-        if (string_compare(command, "exit"))
-        {
-            break;
-        }
-        else if (string_compare(command, "env"))
-        {
-            print_env();
-            continue;
-        }
-
-        args = parse(command, &num_args);
-
-        if (num_args > 0)
-        {
-            excmd(args);
-        }
-        free(args);
-    }
-
-    return 0;
+	for (i = 0; environ[i]; i++)
+		envi[i] = _strdup(environ[i]);
+	envi[i] = NULL;
 }
