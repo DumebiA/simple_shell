@@ -5,7 +5,6 @@
  * @argv:Program Name
  * Return: -1 or  0
  */
-
 void read_file(char *filename, char **argv)
 {
 	FILE *fp;
