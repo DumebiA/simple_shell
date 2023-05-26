@@ -18,6 +18,9 @@
 
 void excmd(char **args);
 char *find_executable(const char *command);
-
+char *construct_file_path(const char *directory, const char *command);
+char **tokenise_path(const char *path);
+char *get_path(void);
+int is_executable_file(const char *file_path);
 
 #endif
