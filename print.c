@@ -1,34 +1,26 @@
 #include "shell.h"
-/**
- * print_number -Print Unsigned Int Putchar
- * @n: Unisigned Integer
- * Return: Void
- */
-void print_number(unsigned int n)
+
+void print_n(unsigned int n)
 {
-	unsigned int x = n;
+	unsigned int o = n;
 
-	if ((x / 10) > 0)
-		print_number(x / 10);
+	if ((o / 10) > 0)
+		print_number(o/ 10);
 
-	_putchar(x % 10 + '0');
+	put_char(o % 10 + '0');
 }
-/**
- * print_number_in -Print Number Putchar
- * @n:Integer
- * Return: void
- */
-void print_number_in(int n)
+
+void print_num_in(int n)
 {
-	unsigned int x = n;
+	unsigned int i = n;
 
 	if (n < 0)
 	{
-		_putchar('-');
-		x = -x;
+		put_char('-');
+		i = -i;
 	}
-	if ((x / 10) > 0)
-		print_number(x / 10);
+	if ((i / 10) > 0)
+		print_number(i / 10);
 
-	_putchar(x % 10 + '0');
+	put_char(i % 10 + '0');
 }
