@@ -1,29 +1,20 @@
-#include "shell.h"
+#include "main.h"
 
-/**
- * prompt - Display Shell Prompt
- */
 void prompt(void)
 {
 	PRINTER("$ ");
 }
-/**
- * print_error - Display Error Based on Command and How Many Time Shell Looped
- * @input:User Input
- * @counter:Simple Shell Count Loop
- * @argv:Program Name
- * Return: Void
- */
-void print_error(char *input, int counter, char **argv)
+
+void err_print(char *in, int count, char **argv)
 {
-	char *er;
+	char *e;
 
 	PRINTER(argv[0]);
 	PRINTER(": ");
-	er = _itoa(counter);
+	e = ao_ti(count);
 	PRINTER(er);
-	free(er);
+	free(e);
 	PRINTER(": ");
-	PRINTER(input);
+	PRINTER(in);
 	PRINTER(": not found\n");
 }
