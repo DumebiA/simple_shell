@@ -1,44 +1,54 @@
 #include "main.h"
 
-/**
- * excmd - function executes stored prompt
- * @command: prompt command storage to be executed
- *
- * Return: return comparism between commands
- */
 
-int string_compare(const char* cmd1, const char* cmd2)
+/**
+ * Function to compare two strings
+ */
+int string_compare(const char *str1, const char *str2)
 {
-        while (*cmd1 != '\0' && *cmd2 != '\0')
+    while (*str1 != '\0' && *str2 != '\0')
+    {
+        if (*str1 != *str2)
         {
-                if (*cmd1 != *cmd2)
-                {
-                        return 0;
-                }
-                cmd1++;
-                cmd2++;
+            return 0;
         }
-        return (*cmd1 == '\0' && *cmd2 == '\0');
+        str1++;
+        str2++;
+    }
+    return (*str1 == '\0' && *str2 == '\0');
 }
 
 /**
- * input_prompt - displays prompt to be inputed
+ * Function to print the current environment
  */
+void print_env()
+{
+    extern char **environ;
+    int i = 0;
+    while (environ[i] != NULL)
+    {
+        write(STDOUT_FILENO, environ[i], strlen(environ[i]));
+        write(STDOUT_FILENO, "\n", 1);
+        i++;
+    }
+}
 
+/**
+ * Function to display the input prompt
+ */
 void input_prompt()
 {
     char prompt[] = "($) ";
-    write(STDERR_FILENO, prompt, sizeof(prompt) - 1);
+    write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
 }
 
 /**
- * parse - paring and tokenization
+ * Function to parse the command and tokenize it
  */
-
-char** parse(char* command, int* num_args)
+char **parse(char *command, int *num_args)
 {
-    char** args = (char**)malloc((MAX_ARGS + 1) * sizeof(char*));
-    char* tok;
+    char **args = (char **)malloc((MAX_ARGS + 1) * sizeof(char *));
+    char *tok;
     int index = 0;
 
     tok = strtok(command, " \t\n");
@@ -55,17 +65,14 @@ char** parse(char* command, int* num_args)
 }
 
 /**
- * main - shell main function
- *
- * Return: 0 if successful
+ * Main function
  */
-
 int main()
 {
     char command[MAX_COMMAND_LENGTH];
     ssize_t nreads;
     int num_args;
-    char** args;
+    char **args;
 
     while (1)
     {
@@ -83,25 +90,22 @@ int main()
 
         if (string_compare(command, "exit"))
         {
-
             break;
+        }
+        else if (string_compare(command, "env"))
+        {
+            print_env();
+            continue;
         }
 
         args = parse(command, &num_args);
 
         if (num_args > 0)
         {
-            if (string_compare(args[0], "exit"))
-            {
-
-                break;
-            }
             excmd(args);
         }
         free(args);
     }
-
-
 
     return 0;
 }

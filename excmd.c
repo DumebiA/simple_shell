@@ -1,18 +1,8 @@
 #include "main.h"
-#include <sys/types.h>
-#include <sys/wait.h>
 
-/**
- * excmd - function executes stored prompt
- * @command: prompt command storage to be executed
- *
- * Return: the difference between final value of s and the initial value of str
- */
-
-void excmd(char** args)
+void excmd(char **args)
 {
     pid_t pid;
-    int status;
 
     pid = fork();
 
@@ -34,14 +24,6 @@ void excmd(char** args)
     }
     else
     {
-        wait(&status);
-        if (WIFEXITED(status))
-        {
-            status = WEXITSTATUS(status);
-        }
-        else
-        {
-            status = 1;
-        }
+        wait(NULL);
     }
 }
