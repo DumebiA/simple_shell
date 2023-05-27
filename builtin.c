@@ -79,7 +79,7 @@ int sho_env(__attribute__((unused)) char **cmd, __attribute__((unused)) int er)
 size_t c;
 	int len;
 
-	for (c = 0; environ[i] != NULL; c++)
+	for (c = 0; environ[c] != NULL; c++)
 	{
 		len = str_len(environ[c]);
 		write(1, environ[c], len);

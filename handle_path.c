@@ -71,7 +71,7 @@ char *_getenv(char *name)
 	{
 		if (strn_cmp(name, environ[i], nl) == 0)
 		{
-			vl = _strlen(environ[i]) - nl;
+			vl = str_len(environ[i]) - nl;
 			value = malloc(sizeof(char) * vl);
 			if (!value)
 			{

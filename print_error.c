@@ -15,14 +15,14 @@ void prompt(void)
  * @argv: name
  * Return: Void
  */
-void print_error(char *input, int counter, char **argv)
+void print_error(char *in, int count, char **argv)
 {
 	char *e;
 
 	PRINTER(argv[0]);
 	PRINTER(": ");
-	e = ao_ti(count);
-	PRINTER(er);
+	e = _atoi(count);
+	PRINTER(e);
 	free(e);
 	PRINTER(": ");
 	PRINTER(in);

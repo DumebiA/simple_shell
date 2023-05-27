@@ -21,7 +21,7 @@ char **parse(char *cmd)
 		tok[n] = t;
 		t = str_tok(NULL, "\n ");
 	}
-	tok[i] = NULL;
+	tok[n] = NULL;
 
 	return (tok);
 }

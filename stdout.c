@@ -6,13 +6,13 @@
  * @cmd:Command
  * Return: Void
  */
-void _prerror(char **argv, int c, char **cmd)
+void _prerror(char **argv, int n, char **cmd)
 {
-	char *r = ao_ti(n);
+	char *r = _atoi(n);
 
 	PRINTER(argv[0]);
 	PRINTER(": ");
-	PRINTER(er);
+	PRINTER(r);
 	PRINTER(": ");
 	PRINTER(cmd[0]);
 	PRINTER(": Error number: ");

@@ -28,9 +28,9 @@ int main(__attribute__((unused)) int argc, char **argv)
 		}
 		history(input);
 		cmd = parse_cmd(input);
-		if (_strcmp(cmd[0], "exit") == 0)
+		if (str_cmp(cmd[0], "exit") == 0)
 		{
-			exit_bul(cmd, input, argv, counter);
+			exit_built(cmd, input, argv, counter);
 		}
 		else if (check_builtin(cmd) == 0)
 		{
@@ -57,7 +57,7 @@ void start_env(char **env)
 	int a;
 
 	for (a = 0; environ[a]; a++)
-		env[a] = _strdup(environ[a]);
+		env[a] = str_dup(environ[a]);
 	env[a] = NULL;
 }
 /**
@@ -82,7 +82,7 @@ int check_builtin(char **cmd)
 
 	while ((fun + i)->command)
 	{
-		if (_strcmp(cmd[0], (fun + i)->command) == 0)
+		if (str_cmp(cmd[0], (fun + i)->command) == 0)
 			return (0);
 		i++;
 	}

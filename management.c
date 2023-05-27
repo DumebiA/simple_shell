@@ -24,13 +24,13 @@ void *re_alloc(void *pointr, unsigned int os, unsigned int ns)
 	if (pointr == NULL)
 	{
 
-		fill_array(result, '\0', new_size);
-		free(ptr);
+		fill_array(result, '\0', ns);
+		free(pointr);
 	}
 	else
 	{
-		mem_cpy(result, ptr, old_size);
-		free(ptr);
+		mem_cpy(result, pointr, os);
+		free(pointr);
 		fill_array(res, '\0', ns);
 		free(pointr);
 	}
@@ -62,11 +62,11 @@ void freeAll(char **cmd, char *line)
 }
 
 /**
- * _memcpy - Copy Byte From Source To Destination
+ * mem_cpy - Copy Byte From Source To Destination
  * @dest: Destination Pointer
  * @src: Source Pointer
- * @o: Size (How Much You Will Copy)
- *Return: Void Pointer
+ * @o: Size
+ * Return: Void Pointer
  */
 char *mem_cpy(char *dest, char *src, unsigned int o)
 {
@@ -100,7 +100,7 @@ void free_all(char **cmd, char *line)
  * @len:Int len
  *Return: Void Pointer
  */
-void *fill_array(void *a, int el, unsigned int len)
+void *fill_array(void *x, int l, unsigned int length)
 {
 	char *o = x;
 	unsigned int n = 0;
