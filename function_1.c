@@ -1,16 +1,16 @@
-#include "shell.h"
+#include "main.h"
 
 /**
- * _strcmp - Compare Two String
- * @s1:String 1
- * @s2:String 2
- * Return: 0 If Identical Otherwise How Much Diffrent
+ * str_cmp - compare string
+ * @s1:Strg 1
+ * @s2:Strg 2
+ * Return: 0 If Identical or null
  */
-int _strcmp(char *s1, char *s2)
+int str_cmp(char *s1, char *s2)
 {
 int cmp = 0, i, len1, len2;
-len1 = _strlen(s1);
-len2 = _strlen(s2);
+len1 = str_len(s1);
+len2 = str_len(s2);
 
 	if (s1 == NULL || s2 == NULL)
 		return (1);
@@ -29,8 +29,8 @@ len2 = _strlen(s2);
 	return (cmp);
 }
 /**
- * _isalpha - Check if Alphabtic
- *@c: Character
+ * _isalpha - Alphabtic check
+ *@c: Char
  * Return: 1 If True 0 If Not
  */
 int _isalpha(int c)
@@ -45,9 +45,9 @@ return (0);
 }
 }
 /**
- * _itoa - Convert Integer To Char
- * @n: Int To Convert
- * Return: Char Pointer
+ * _itoa - int converter
+ * @n: given int
+ * Return: Pointer
  */
 char *_itoa(unsigned int n)
 {
@@ -71,10 +71,10 @@ char *_itoa(unsigned int n)
 	return (s);
 }
 /**
- *  array_rev - Reverse Array
- * @arr:Array To Reverse
- * @len:Length Of Array
- * Return: Void(Reverse Array)
+ *  array_rev - Rev Array
+ * @arr: Reverse
+ * @len: array len
+ * Return: void
  */
 void array_rev(char *arr, int len)
 {
@@ -89,9 +89,9 @@ void array_rev(char *arr, int len)
 	}
 }
 /**
- * intlen - Determine Length Of Int
- * @num: Given Int
- * Return: Length Of Int
+ * intlen - Length Of Int
+ * @num: Int
+ * Return: Int
  */
 int intlen(int num)
 {

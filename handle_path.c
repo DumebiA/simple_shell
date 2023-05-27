@@ -1,8 +1,8 @@
-#include "shell.h"
+#include "main.h"
 
 /**
- * path_cmd -  Search In $PATH For Excutable Command
- * @cmd: Parsed Input
+ * path_cmd -  go through $PATH for exe cmnd
+ * @cmd: Input
  * Return: 1  Failure  0  Success.
  */
 int path_cmd(char **cmd)
@@ -11,19 +11,19 @@ int path_cmd(char **cmd)
 	struct stat buf;
 
 	path = _getenv("PATH");
-	value = _strtok(path, ":");
+	value = str_tok(path, ":");
 	while (value != NULL)
 	{
 		cmd_path = build(*cmd, value);
 		if (stat(cmd_path, &buf) == 0)
 		{
-			*cmd = _strdup(cmd_path);
+			*cmd = str_dup(cmd_path);
 			free(cmd_path);
 			free(path);
 			return (0);
 		}
 		free(cmd_path);
-		value = _strtok(NULL, ":");
+		value = str_tok(NULL, ":");
 	}
 	free(path);
 
@@ -31,17 +31,16 @@ int path_cmd(char **cmd)
 }
 /**
  * build - Build Command
- * @token: Excutable Command
- * @value: Dirctory Conatining Command
- *
- * Return: Parsed Full Path Of Command Or NULL Case Failed
+ * @token: exe. cmd.
+ * @value: Dir carry cmnd
+ * Return: Path or null
  */
 char *build(char *token, char *value)
 {
 	char *cmd;
 	size_t len;
 
-	len = _strlen(value) + _strlen(token) + 2;
+	len = str_len(value) + _str_len(token) + 2;
 	cmd = malloc(sizeof(char) * len);
 	if (cmd == NULL)
 	{
@@ -50,16 +49,16 @@ char *build(char *token, char *value)
 
 	memset(cmd, 0, len);
 
-	cmd = _strcat(cmd, value);
-	cmd = _strcat(cmd, "/");
-	cmd = _strcat(cmd, token);
+	cmd = str_cat(cmd, value);
+	cmd = str_cat(cmd, "/");
+	cmd = str_cat(cmd, token);
 
 	return (cmd);
 }
 /**
- * _getenv - Gets The Value Of Enviroment Variable By Name
- * @name: Environment Variable Name
- * Return: The Value of the Environment Variable Else NULL.
+ * _getenv - get environ var.
+ * @name: variable name
+ * Return: value else null
  */
 char *_getenv(char *name)
 {
@@ -67,10 +66,10 @@ char *_getenv(char *name)
 	char *value;
 	int i, x, j;
 
-	nl = _strlen(name);
+	nl = str_len(name);
 	for (i = 0 ; environ[i]; i++)
 	{
-		if (_strncmp(name, environ[i], nl) == 0)
+		if (strn_cmp(name, environ[i], nl) == 0)
 		{
 			vl = _strlen(environ[i]) - nl;
 			value = malloc(sizeof(char) * vl);

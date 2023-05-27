@@ -1,8 +1,8 @@
-#include "shell.h"
+#include "main.h"
 /**
- * read_file - Read Command From File
- * @filename:Filename
- * @argv:Program Name
+ * read_file - Read cmd
+ * @filename: name of file
+ * @argv: Name
  * Return: -1 or  0
  */
 
@@ -30,12 +30,12 @@ void read_file(char *filename, char **argv)
 	exit(0);
 }
 /**
- * treat_file - PARSE Check Command Fork Wait Excute in Line of File
- * @line: Line From A File
- * @counter:Error Counter
- * @fp:File Descriptor
- * @argv:Program Name
- * Return : Excute A line void
+ * treat_file - Parse and execute on line
+ * @line: line taken
+ * @counter: Error Count
+ * @fp: FD
+ * @argv: Name
+ * Return : void
  */
 void treat_file(char *line, int counter, FILE *fp, char **argv)
 {
@@ -44,9 +44,9 @@ void treat_file(char *line, int counter, FILE *fp, char **argv)
 
 	cmd = parse_cmd(line);
 
-		if (_strncmp(cmd[0], "exit", 4) == 0)
+		if (strn_cmp(cmd[0], "exit", 4) == 0)
 		{
-			exit_bul_for_file(cmd, line, fp);
+			exit_file(cmd, line, fp);
 		}
 		else if (check_builtin(cmd) == 0)
 		{
@@ -60,21 +60,21 @@ void treat_file(char *line, int counter, FILE *fp, char **argv)
 		}
 }
 /**
- * exit_bul_for_file - Exit Shell Case Of File
- * @line: Line From A File
- * @cmd: Parsed Command
- * @fd:File Descriptor
- * Return : Case Of Exit in A File Line
+ * exit_file- Exit case file
+ * @line: take from line
+ * @cmd: Command
+ * @fd: FD
+ * Return : Case line
  */
-void exit_bul_for_file(char **cmd, char *line, FILE *fd)
+void exit_file(char **cmd, char *line, FILE *fd)
 {
 	int statue, i = 0;
 
 	if (cmd[1] == NULL)
 	{
 		free(line);
-		free(cmd);
 		fclose(fd);
+		free(cmd);
 		exit(errno);
 	}
 	while (cmd[1][i])
@@ -86,8 +86,8 @@ void exit_bul_for_file(char **cmd, char *line, FILE *fd)
 	}
 	statue = _atoi(cmd[1]);
 	free(line);
-	free(cmd);
 	fclose(fd);
+	free(cmd);
 	exit(statue);
 
 

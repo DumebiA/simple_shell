@@ -1,25 +1,24 @@
-#include "shell.h"
+#include "main.h"
 
 /**
- * _putchar - writes the character c to stdout
- * @c: The character to print
- *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ * put_char - writes char to stdout
+ * @c: char to print
+ * Return: 1 on  success
+ * On error, -1 is returned
  */
-int _putchar(char c)
+int put_char(char c)
 {
 	return (write(1, &c, 1));
 }
 /**
- * _strncpy - copie a string
- * @dest:char
- *  @src:char
+ * strn_cpy - copy strg
+ * @dest: character
+ *  @src: character
  * @n:int
- * Return:char
+ * Return: char
  */
 
-char *_strncpy(char *dest, char *src, int n)
+char *strn_cpy(char *dest, char *src, int n)
 {
 int i;
 
@@ -38,12 +37,12 @@ i = 0;
 }
 
 /**
- * _strlen - lenght of string
+ * str_len - lenght of string
  * @s:char
  * Return:int
  */
 
-int _strlen(char *s)
+int str_len(char *s)
 {
 	int i;
 
@@ -55,9 +54,9 @@ return (i);
 }
 
 /**
- * _atoi - convert to a int
- * @s:string
- * Return:int
+ * _atoi - change to int
+ * @s: strg
+ * Return: int
  */
 int _atoi(char *s)
 {
@@ -80,9 +79,9 @@ int i, j, n, x;
 	return (n);
 }
 /**
- * _puts - print a string
- * @str:pointer char
- * return:void
+ * _puts - output string
+ * @str: pointer charaxter
+ * Return: void
  */
 void _puts(char *str)
 {
@@ -90,8 +89,8 @@ void _puts(char *str)
 
 	for (i = 0; str[i] != '\0'; i++)
 	{
-		_putchar(str[i]);
+		put_char(str[i]);
 	}
-_putchar('\n');
+put_char('\n');
 return;
 }

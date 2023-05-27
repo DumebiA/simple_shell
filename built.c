@@ -1,10 +1,10 @@
-#include "shell.h"
+#include "main.h"
 
 /**
- * history_dis - Display History Of User Input Simple Shell
- * @c:Parsed Command
- * @s:Statue Of Last Excute
- * Return: 0 Succes -1 Fail
+ * history_dis - show input history
+ * @c: given command
+ * @s:Statue
+ * Return: 0 on  Succes -1 on Fail
  */
 int history_dis(__attribute__((unused))char **c, __attribute__((unused))int s)
 {
@@ -25,8 +25,8 @@ int history_dis(__attribute__((unused))char **c, __attribute__((unused))int s)
 		counter++;
 		er = _itoa(counter);
 		PRINTER(er);
-		free(er);
 		PRINTER(" ");
+		free(er);
 		PRINTER(line);
 
 	}
@@ -36,9 +36,9 @@ int history_dis(__attribute__((unused))char **c, __attribute__((unused))int s)
 	return (0);
 }
 /**
- * print_echo - Excute Normal Echo
- * @cmd: Parsed Command
- * Return: 0 Succes -1 Fail
+ * print_echo - Echo display
+ * @cmd: given commnad
+ * Return: 0 Succes negative 1 on Fail
  */
 int print_echo(char **cmd)
 {

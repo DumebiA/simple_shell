@@ -1,10 +1,11 @@
-#include "shell.h"
+#include "main.h"
+#include <stdio.h>
 
 /**
- * main - Simple Shell (Hsh)
- * @argc: Argument Count
- * @argv:Argument Value
- * Return: Exit Value By Status
+ * main - ./hsh bourn shell
+ * @argv: argv vector
+ * @argc: arg count
+ * Return: status
  */
 
 int main(__attribute__((unused)) int argc, char **argv)
@@ -47,10 +48,22 @@ int main(__attribute__((unused)) int argc, char **argv)
 	return (statue);
 }
 /**
- * check_builtin - check builtin
- *
- * @cmd:command to check
- * Return: 0 Succes -1 Fail
+ * start_env - display the environ
+ * @env: array of eeniron
+ * Return: Void
+ */
+void start_env(char **env)
+{
+	int a;
+
+	for (a = 0; environ[a]; a++)
+		env[a] = _strdup(environ[a]);
+	env[a] = NULL;
+}
+/**
+ * check_builtin -locate builtIn functionz
+ * @cmd: commands given
+ * Return: negative 1 fail 0 on success
  */
 int check_builtin(char **cmd)
 {
@@ -74,17 +87,4 @@ int check_builtin(char **cmd)
 		i++;
 	}
 	return (-1);
-}
-/**
- * creat_envi - Creat Array of Enviroment Variable
- * @envi: Array of Enviroment Variable
- * Return: Void
- */
-void creat_envi(char **envi)
-{
-	int i;
-
-	for (i = 0; environ[i]; i++)
-		envi[i] = _strdup(environ[i]);
-	envi[i] = NULL;
 }

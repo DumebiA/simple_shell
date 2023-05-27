@@ -1,17 +1,17 @@
-#include "shell.h"
+#include "main.h"
 
 /**
- * handle_builtin - Handle Builtin Command
- * @cmd: Parsed Command
- * @er:statue of last Excute
- * Return: -1 Fail 0 Succes (Return :Excute Builtin)
+ * handle_builtin - take built cmd
+ * @cmd: given command
+ * @er: last statu
+ * Return: -1 Fail 0 Succes
  */
 
 int handle_builtin(char **cmd, int er)
 {
 	 bul_t bil[] = {
 		{"cd", change_dir},
-		{"env", dis_env},
+		{"env", sho_env},
 		{"help", display_help},
 		{"echo", echo_bul},
 		{"history", history_dis},
@@ -21,7 +21,7 @@ int handle_builtin(char **cmd, int er)
 
 	while ((bil + i)->command)
 	{
-		if (_strcmp(cmd[0], (bil + i)->command) == 0)
+		if (str_cmp(cmd[0], (bil + i)->command) == 0)
 		{
 			return ((bil + i)->fun(cmd, er));
 		}
@@ -30,12 +30,11 @@ int handle_builtin(char **cmd, int er)
 	return (-1);
 }
 /**
- * check_cmd - Excute Simple Shell Command (Fork,Wait,Excute)
- *
- * @cmd:Parsed Command
- * @input: User Input
- * @c:Shell Excution Time Case of Command Not Found
- * @argv:Program Name
+ * check_cmd - Fork, Wait, and Excute
+ * @cmd: given command
+ * @input: Input
+ * @c: Shell Excution
+ * @argv:  Name
  * Return: 1 Case Command Null -1 Wrong Command 0 Command Excuted
  */
 int check_cmd(char **cmd, char *input, int c, char **argv)
@@ -57,7 +56,7 @@ int check_cmd(char **cmd, char *input, int c, char **argv)
 
 	if (pid == 0)
 	{
-		if (_strncmp(*cmd, "./", 2) != 0 && _strncmp(*cmd, "/", 1) != 0)
+		if (strn_cmp(*cmd, "./", 2) != 0 && strn_cmp(*cmd, "/", 1) != 0)
 		{
 			path_cmd(cmd);
 		}
@@ -75,8 +74,8 @@ int check_cmd(char **cmd, char *input, int c, char **argv)
 	return (0);
 }
 /**
- * signal_to_handel - Handle ^C
- * @sig:Captured Signal
+ * signal_to_handel - Take ^C
+ * @sig: Hold signal
  * Return: Void
  */
 void signal_to_handel(int sig)

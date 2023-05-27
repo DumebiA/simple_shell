@@ -1,15 +1,15 @@
-#include "shell.h"
+#include "main.h"
 /**
- * exit_bul - Exit Statue Shell
- * @cmd: Parsed Command
- * @input: User Input
- * @argv:Program Name
- * @c:Excute Count
- * Return: Void (Exit Statue)
+ * exit_built - Exit
+ * @argv: name
+ * @input: given input
+ * @cmd: command
+ * @c: count
+ * Return: Void
  */
-void  exit_bul(char **cmd, char *input, char **argv, int c)
+void  exit_built(char **cmd, char *input, char **argv, int c)
 {
-	int statue, i = 0;
+	int statue, b = 0;
 
 	if (cmd[1] == NULL)
 	{
@@ -17,9 +17,9 @@ void  exit_bul(char **cmd, char *input, char **argv, int c)
 		free(cmd);
 		exit(EXIT_SUCCESS);
 	}
-	while (cmd[1][i])
+	while (cmd[1][b])
 	{
-		if (_isalpha(cmd[1][i++]) != 0)
+		if (_isalpha(cmd[1][b++]) != 0)
 		{
 			_prerror(argv, c, cmd);
 			break;
@@ -36,10 +36,10 @@ void  exit_bul(char **cmd, char *input, char **argv, int c)
 
 
 /**
- * change_dir - Change Dirctorie
- * @cmd: Parsed Command
- * @er: Statue Last Command Excuted
- * Return: 0 Succes 1 Failed (For Old Pwd Always 0 Case No Old PWD)
+ * change_dir - CD
+ * @cmd: Command
+ * @er: last statu
+ * Return: 0 Succes 1 Failed
  */
 int change_dir(char **cmd, __attribute__((unused))int er)
 {
@@ -48,7 +48,7 @@ int change_dir(char **cmd, __attribute__((unused))int er)
 
 	if (cmd[1] == NULL)
 		value = chdir(getenv("HOME"));
-	else if (_strcmp(cmd[1], "-") == 0)
+	else if (str_cmp(cmd[1], "-") == 0)
 	{
 		value = chdir(getenv("OLDPWD"));
 	}
@@ -69,28 +69,28 @@ int change_dir(char **cmd, __attribute__((unused))int er)
 	return (0);
 }
 /**
- * dis_env - Display Enviroment Variable
- * @cmd:Parsed Command
- * @er:Statue of Last command Excuted
+ * sho_env - show environ
+ * @cmd: given
+ * @er:Statue of Last
  * Return:Always 0
  */
-int dis_env(__attribute__((unused)) char **cmd, __attribute__((unused)) int er)
+int sho_env(__attribute__((unused)) char **cmd, __attribute__((unused)) int er)
 {
-size_t i;
+size_t c;
 	int len;
 
-	for (i = 0; environ[i] != NULL; i++)
+	for (c = 0; environ[i] != NULL; c++)
 	{
-		len = _strlen(environ[i]);
-		write(1, environ[i], len);
+		len = str_len(environ[c]);
+		write(1, environ[c], len);
 		write(STDOUT_FILENO, "\n", 1);
 	}
 	return (0);
 }
 /**
- * display_help - Displaying Help For Builtin
- * @cmd:Parsed Command
- * @er: Statue Of Last Command Excuted
+ * display_help - show file
+ * @cmd: Command
+ * @er: Statue Of command
  * Return: 0 Succes -1 Fail
  */
 int display_help(char **cmd, __attribute__((unused))int er)
@@ -113,32 +113,32 @@ int display_help(char **cmd, __attribute__((unused))int er)
 			return (-1);
 		}
 	}
-	_putchar('\n');
+	put_char('\n');
 	return (0);
 }
 /**
- * echo_bul - Excute Echo Cases
- * @st:Statue Of Last Command Excuted
- * @cmd: Parsed Command
- * Return: Always 0 Or Excute Normal Echo
+ * echo_bul - echo output
+ * @cmd: command given
+ * @st: statu
+ * Return: 0 always
  */
 int echo_bul(char **cmd, int st)
 {
 	char *path;
 	unsigned int  pid = getppid();
 
-	if (_strncmp(cmd[1], "$?", 2) == 0)
+	if (strn_cmp(cmd[1], "$?", 2) == 0)
 	{
 		print_number_in(st);
 		PRINTER("\n");
 	}
-	else if (_strncmp(cmd[1], "$$", 2) == 0)
+	else if (strn_cmp(cmd[1], "$$", 2) == 0)
 	{
 		print_number(pid);
 		PRINTER("\n");
 
 	}
-	else if (_strncmp(cmd[1], "$PATH", 5) == 0)
+	else if (strn_cmp(cmd[1], "$PATH", 5) == 0)
 	{
 		path = _getenv("PATH");
 		PRINTER(path);
