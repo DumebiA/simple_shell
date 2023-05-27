@@ -24,13 +24,6 @@ void *re_alloc(void *pointr, unsigned int os, unsigned int ns)
 	if (pointr == NULL)
 	{
 
-		fill_array(result, '\0', ns);
-		free(pointr);
-	}
-	else
-	{
-		mem_cpy(result, pointr, os);
-		free(pointr);
 		fill_array(res, '\0', ns);
 		free(pointr);
 	}

@@ -40,7 +40,7 @@ char *build(char *token, char *value)
 	char *cmd;
 	size_t len;
 
-	len = str_len(value) + _str_len(token) + 2;
+	len = str_len(value) + str_len(token) + 2;
 	cmd = malloc(sizeof(char) * len);
 	if (cmd == NULL)
 	{

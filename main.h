@@ -26,9 +26,9 @@ extern char **environ;
 
 
 
-
+char *str_dup(char *str)
 int put_char(char c);
-int _atoi(char *s);
+char _atoi(char *s);
 void array_rev(char *arr, int len);
 int intlen(int num);
 char *_itoa(unsigned int n);
@@ -36,7 +36,6 @@ char *str_cat(char *dest, char *src);
 char *str_cpy(char *dest, char *src);
 char *str_chr(char *s, char c);
 int strn_cmp(const char *s1, const char *s2, size_t n);
-char *str_dup(char *str);
 char *str_tok(char *str, const char *tok);
 unsigned int check_delim(char c, const char *str);
 char *strn_cpy(char *dest, char *src, int n);

@@ -88,22 +88,22 @@ int strn_cmp(const char *s1, const char *s2, size_t n)
  * @str: Strg
  * Return: Failed Null
  */
-char str_dup(char *str)
+char *str_dup(char *str)
 {
-	size_t len, i;
-	char *str2;
+	size_t length 0;
+	char *str0;
 
 	len = str_len(str);
-	str2 = malloc(sizeof(char) * (len + 1));
-	if (!str2)
+	str0 = malloc(sizeof(char) * (length + 1));
+	if (!str0)
 	{
 		return (NULL);
 	}
 
-	for (i = 0; i <= len; i++)
+	for (n = 0; n <= len; n++)
 	{
-		str2[i] = str[i];
+		str0[n] = str[n];
 	}
 
-	return (str2);
+	return (str0);
 }

@@ -6,7 +6,8 @@
  * @str: String To Check
  * Return: 1 Succes, 0 Failed
  */
-unsigned int check_delim(char i, const char *str)
+
+unsigned int delim(char i, const char *str)
 {
 	unsigned int n;
 

@@ -8,7 +8,7 @@
  */
 void _prerror(char **argv, int n, char **cmd)
 {
-	char *r = _atoi(n);
+	char *r = _itoa(n);
 
 	PRINTER(argv[0]);
 	PRINTER(": ");

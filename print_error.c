@@ -21,7 +21,7 @@ void print_error(char *in, int count, char **argv)
 
 	PRINTER(argv[0]);
 	PRINTER(": ");
-	e = _atoi(count);
+	e = _itoa(count);
 	PRINTER(e);
 	free(e);
 	PRINTER(": ");

@@ -7,6 +7,7 @@
  * @c: count
  * Return: Void
  */
+
 void  exit_built(char **cmd, char *input, char **argv, int c)
 {
 	int statue, b = 0;
@@ -41,6 +42,7 @@ void  exit_built(char **cmd, char *input, char **argv, int c)
  * @er: last statu
  * Return: 0 Succes 1 Failed
  */
+
 int change_dir(char **cmd, __attribute__((unused))int er)
 {
 	int value = -1;
