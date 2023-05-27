@@ -16,7 +16,7 @@ void *re_alloc(void *pointr, unsigned int os, unsigned int ns)
 		return (NULL);
 	if (pointr == NULL)
 	{
-		fill_an_array(res, '\0', ns);
+		fill_array(res, '\0', ns);
 		free(pointr);
 	}
 	else
@@ -41,7 +41,7 @@ void freeAll(char **cmd, char *line)
  * _memcpy - Copy Byte From Source To Destination
  * @dest: Destination Pointer
  * @src: Source Pointer
- * @n: Size (How Much You Will Copy)
+ * @o: Size (How Much You Will Copy)
  *Return: Void Pointer
  */
 char *mem_cpy(char *dest, char *src, unsigned int o)
@@ -61,18 +61,18 @@ char *mem_cpy(char *dest, char *src, unsigned int o)
  * @len:Length Int
  *Return: Void Pointer
  */
-void *fill_an_array(void *a, int el, unsigned int len)
+void *fill_array(void *x, int l, unsigned int length)
 {
-	char *p = a;
-	unsigned int i = 0;
+	char *o = x;
+	unsigned int n = 0;
 
-	while (i < len)
+	while (n < length)
 	{
-		*p = el;
-		p++;
-		i++;
+		*o = l;
+		o++;
+		n++;
 	}
-	return (a);
+	return (x);
 }
 /**
  * _calloc -  Allocates Memory For An Array, Using Malloc.
