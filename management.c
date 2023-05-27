@@ -1,6 +1,5 @@
 #include "main.h"
 
-<<<<<<< HEAD
 /**
  **_realloc - memory reallocation via malloc and free
  *@ptr: Pointer
@@ -8,10 +7,7 @@
  *@new_size: latest size pointer
  *Return: pointer to reallocated memory
  */
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
-=======
 void *re_alloc(void *pointr, unsigned int os, unsigned int ns)
->>>>>>> 6e71b2a5f3eff3c32419dc876ae517412fc179f8
 {
 	void *res;
 
@@ -27,7 +23,7 @@ void *re_alloc(void *pointr, unsigned int os, unsigned int ns)
 		return (NULL);
 	if (pointr == NULL)
 	{
-<<<<<<< HEAD
+
 		fill_array(result, '\0', new_size);
 		free(ptr);
 	}
@@ -35,7 +31,6 @@ void *re_alloc(void *pointr, unsigned int os, unsigned int ns)
 	{
 		mem_cpy(result, ptr, old_size);
 		free(ptr);
-=======
 		fill_array(res, '\0', ns);
 		free(pointr);
 	}
@@ -43,12 +38,12 @@ void *re_alloc(void *pointr, unsigned int os, unsigned int ns)
 	{
 		mem_cpy(res, pointr, os);
 		free(pointr);
->>>>>>> 6e71b2a5f3eff3c32419dc876ae517412fc179f8
+
 	}
 	return (res);
 
 }
-<<<<<<< HEAD
+
 
 /**
  * mem_cpy - byte copy form source to dest
@@ -57,9 +52,6 @@ void *re_alloc(void *pointr, unsigned int os, unsigned int ns)
  * @n: size
  *Return: void Pointer
  */
-char *mem_cpy(char *dest, char *src, unsigned int n)
-=======
-
 void freeAll(char **cmd, char *line)
 {
 	free(cmd);
@@ -77,17 +69,13 @@ void freeAll(char **cmd, char *line)
  *Return: Void Pointer
  */
 char *mem_cpy(char *dest, char *src, unsigned int o)
->>>>>>> 6e71b2a5f3eff3c32419dc876ae517412fc179f8
 {
 	unsigned int n;
 
 	for (n = 0;n < o; n++)
 	{
-<<<<<<< HEAD
-		est[i] = src[i];
-=======
+
 		dest[n] = src[n];
->>>>>>> 6e71b2a5f3eff3c32419dc876ae517412fc179f8
 	}
 	return (dest);
 }
@@ -112,11 +100,7 @@ void free_all(char **cmd, char *line)
  * @len:Int len
  *Return: Void Pointer
  */
-<<<<<<< HEAD
 void *fill_array(void *a, int el, unsigned int len)
-=======
-void *fill_array(void *x, int l, unsigned int length)
->>>>>>> 6e71b2a5f3eff3c32419dc876ae517412fc179f8
 {
 	char *o = x;
 	unsigned int n = 0;

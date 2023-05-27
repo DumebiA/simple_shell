@@ -18,7 +18,7 @@ char **parse(char *cmd)
 	t = str_tok(cmd, "\n ");
 	for (n = 0; t; n++)
 	{
-		tok[i] = t;
+		tok[n] = t;
 		t = str_tok(NULL, "\n ");
 	}
 	tok[i] = NULL;

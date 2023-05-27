@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include "main.h"
 /**
  * print_number -Print Unsigned Int Putchar
@@ -6,11 +5,6 @@
  * Return: Void
  */
 void print_number(unsigned int n)
-=======
-#include "shell.h"
-
-void print_n(unsigned int n)
->>>>>>> 6e71b2a5f3eff3c32419dc876ae517412fc179f8
 {
 	unsigned int o = n;
 

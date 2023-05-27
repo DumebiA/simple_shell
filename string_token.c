@@ -1,5 +1,5 @@
 #include "main.h"
-<<<<<<< HEAD
+
 /**
  * check_delim - Checks If A Character Match Any Char *
  * @c: Character To Check
@@ -7,10 +7,6 @@
  * Return: 1 Succes, 0 Failed
  */
 unsigned int check_delim(char c, const char *str)
-=======
-
-unsigned int delim(char i, const char *str)
->>>>>>> 6e71b2a5f3eff3c32419dc876ae517412fc179f8
 {
 	unsigned int n;
 
@@ -46,7 +42,7 @@ char *str_tok(char *s, const char *d)
 	}
 	t = n + i;
 	n = t;
-	for (i = 0; [i] != '\0'; i++)
+	for (i = 0; n[i] != '\0'; i++)
 	{
 		if (delim(n[i], d) == 1)
 			break;
