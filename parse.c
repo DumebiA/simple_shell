@@ -1,32 +1,27 @@
 #include "main.h"
 
-/**
- * parse_cmd - Parse Line Of Input
- * @input:User Input To Parse
- * Return: Array Of Char (Parsed):Simple Shell
- */
-char **parse_cmd(char *input)
+char **parse(char *cmd)
 {
-	char **tokens;
-	char *token;
-	int i, buffsize = BUFSIZE;
+	char **tok;
+	char *t;
+	int n, buff = BUFSIZE;
 
-	if (input == NULL)
+	if (cmd == NULL)
 		return (NULL);
-	tokens = malloc(sizeof(char *) * buffsize);
-	if (!tokens)
+	tok = malloc(sizeof(char *) * buff);
+	if (!tok)
 	{
 		perror("hsh");
 		return (NULL);
 	}
 
-	token = _strtok(input, "\n ");
-	for (i = 0; token; i++)
+	t = str_tok(cmd, "\n ");
+	for (n = 0; t; n++)
 	{
-		tokens[i] = token;
-		token = _strtok(NULL, "\n ");
+		tok[i] = t;
+		t = str_tok(NULL, "\n ");
 	}
-	tokens[i] = NULL;
+	tok[i] = NULL;
 
-	return (tokens);
+	return (tok);
 }

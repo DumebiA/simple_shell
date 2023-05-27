@@ -1,5 +1,6 @@
 #include "main.h"
 
+<<<<<<< HEAD
 /**
  **_realloc - memory reallocation via malloc and free
  *@ptr: Pointer
@@ -8,21 +9,25 @@
  *Return: pointer to reallocated memory
  */
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+=======
+void *re_alloc(void *pointr, unsigned int os, unsigned int ns)
+>>>>>>> 6e71b2a5f3eff3c32419dc876ae517412fc179f8
 {
-	void *result;
+	void *res;
 
-	if (new_size == old_size)
-		return (ptr);
-	if (new_size == 0 && ptr)
+	if (ns == os)
+		return (pointr);
+	if (ns == 0 && pointr)
 	{
-		free(ptr);
+		free(pointr);
 		return (NULL);
 	}
-	result = malloc(new_size);
-	if (result == NULL)
+	res = malloc(ns);
+	if (res == NULL)
 		return (NULL);
-	if (ptr == NULL)
+	if (pointr == NULL)
 	{
+<<<<<<< HEAD
 		fill_array(result, '\0', new_size);
 		free(ptr);
 	}
@@ -30,10 +35,20 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 	{
 		mem_cpy(result, ptr, old_size);
 		free(ptr);
+=======
+		fill_array(res, '\0', ns);
+		free(pointr);
 	}
-	return (result);
+	else
+	{
+		mem_cpy(res, pointr, os);
+		free(pointr);
+>>>>>>> 6e71b2a5f3eff3c32419dc876ae517412fc179f8
+	}
+	return (res);
 
 }
+<<<<<<< HEAD
 
 /**
  * mem_cpy - byte copy form source to dest
@@ -43,12 +58,36 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
  *Return: void Pointer
  */
 char *mem_cpy(char *dest, char *src, unsigned int n)
-{
-	unsigned int i;
+=======
 
-	for (i = 0; i < n; i++)
+void freeAll(char **cmd, char *line)
+{
+	free(cmd);
+	free(line);
+
+	cmd = NULL;
+	line = NULL;
+}
+
+/**
+ * _memcpy - Copy Byte From Source To Destination
+ * @dest: Destination Pointer
+ * @src: Source Pointer
+ * @o: Size (How Much You Will Copy)
+ *Return: Void Pointer
+ */
+char *mem_cpy(char *dest, char *src, unsigned int o)
+>>>>>>> 6e71b2a5f3eff3c32419dc876ae517412fc179f8
+{
+	unsigned int n;
+
+	for (n = 0;n < o; n++)
 	{
+<<<<<<< HEAD
 		est[i] = src[i];
+=======
+		dest[n] = src[n];
+>>>>>>> 6e71b2a5f3eff3c32419dc876ae517412fc179f8
 	}
 	return (dest);
 }
@@ -73,18 +112,22 @@ void free_all(char **cmd, char *line)
  * @len:Int len
  *Return: Void Pointer
  */
+<<<<<<< HEAD
 void *fill_array(void *a, int el, unsigned int len)
+=======
+void *fill_array(void *x, int l, unsigned int length)
+>>>>>>> 6e71b2a5f3eff3c32419dc876ae517412fc179f8
 {
-	char *p = a;
-	unsigned int i = 0;
+	char *o = x;
+	unsigned int n = 0;
 
-	while (i < len)
+	while (n < length)
 	{
-		*p = el;
-		p++;
-		i++;
+		*o = l;
+		o++;
+		n++;
 	}
-	return (a);
+	return (x);
 }
 /**
  * _calloc - memory allocation via malloc
