@@ -1,34 +1,36 @@
 #include "main.h"
 /**
- * print_number -Print Unsigned Int Putchar
- * @n: Unisigned Integer
+ * prnt_num -Print Unsigned Int Putchar
+ * @i: Unisigned Integer
  * Return: Void
  */
-void print_number(unsigned int n)
+void prnt_num(unsigned int i)
 {
-	unsigned int x = n;
+	unsigned int n;
+	n = i;
 
-	if ((x / 10) > 0)
-		print_number(x / 10);
+	if ((n / 10) > 0)
+		prnt_num(n / 10);
 
-	_putchar(x % 10 + '0');
+	put_char(n % 10 + '0');
 }
+
 /**
- * print_number_in -Print Number Putchar
- * @n:Integer
+ * num_int -Print Number Putchar
+ * @i: Integer
  * Return: void
  */
-void print_number_in(int n)
+void num_int(int i)
 {
-	unsigned int x = n;
+	unsigned int n = i;
 
-	if (n < 0)
+	if (i < 0)
 	{
-		_putchar('-');
-		x = -x;
+		put_char('-');
+		n = -n;
 	}
-	if ((x / 10) > 0)
-		print_number(x / 10);
+	if ((n / 10) > 0)
+		prnt_num(n / 10);
 
-	_putchar(x % 10 + '0');
+	put_char(n % 10 + '0');
 }

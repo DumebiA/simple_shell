@@ -3,38 +3,36 @@
 /**
  * _putchar - writes the character c to stdout
  * @c: The character to print
- *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ * Return: On success 1. On error, -1 is returned
  */
-int _putchar(char c)
+int put_char(char c)
 {
 	return (write(1, &c, 1));
 }
+
 /**
- * _strncpy - copie a string
- * @dest:char
- *  @src:char
- * @n:int
+ * strn_cpy - copy a string
+ * @c:char
+ *  @r:char
+ * @o:int
  * Return:char
  */
-
-char *_strncpy(char *dest, char *src, int n)
+char *strn_cpy(char *c, char *r, int o)
 {
 int i;
 
 i = 0;
-	while (i < n && *(src + i))
+	while (i < o && *(r + i))
 	{
-	*(dest + i) = *(src + i);
+	*(c + i) = *(r + i);
 	i++;
 	}
-	while (i < n)
+	while (i < o)
 	{
-	*(dest + i) = '\0';
+	*(c + i) = '\0';
 	i++;
 	}
-	return (dest);
+	return (c);
 }
 
 /**
@@ -90,8 +88,8 @@ void _puts(char *str)
 
 	for (i = 0; str[i] != '\0'; i++)
 	{
-		_putchar(str[i]);
+		put_char(str[i]);
 	}
-_putchar('\n');
+put_char('\n');
 return;
 }

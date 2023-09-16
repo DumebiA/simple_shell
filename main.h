@@ -1,5 +1,5 @@
-#ifndef _SHELL_H_
-#define _SHELL_H_
+#ifndef MAIN_H
+#define MAIN_H
 
 /**###### environ var ######*/
 
@@ -33,9 +33,9 @@ extern char **environ;
 
 char *_strtok(char *str, const char *tok);
 unsigned int check_delim(char c, const char *str);
-char *_strncpy(char *dest, char *src, int n);
+char *strn_cpy(char *dest, char *src, int o);
 int _strlen(char *s);
-int _putchar(char c);
+int put_char(char c);
 int _atoi(char *s);
 void _puts(char *str);
 int _strcmp(char *s1, char *s2);
@@ -78,21 +78,25 @@ int check_cmd(char **tokens, char *line, int count, char **argv);
 void treat_file(char *line, int counter, FILE *fd, char **argv);
 void exit_bul_for_file(char **cmd, char *line, FILE *fd);
 
-/** ####BUL FUNC #####*/
+/**
+ * BUILT INs
+ */
 
 void hashtag_handle(char *buff);
 int history(char *input);
 int history_dis(char **cmd, int er);
 int env_cmd(char **cmd, int er);
 int cd_cmd(char **command, int r);
-int help_cmd(char **cmd, int er);
-int echo_bul(char **cmd, int er);
-void  exit_cmd(char **command, char *in, char **argv, int i);
+int help_cmd(char **command, int r);
+int echo_cmd(char **command, int i);
+void exit_cmd(char **command, char *in, char **argv, int i);
 int print_echo(char **cmd);
 
-/** ####error handle and Printer ####*/
-void print_number(unsigned int n);
-void print_number_in(int n);
+/**
+ * error handle and Printer
+ */
+void prnt_num(unsigned int i);
+void num_int(int i);
 void print_error(char *line, int c, char **argv);
 void _prerror(char **argv, int c, char **cmd);
 

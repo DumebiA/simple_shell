@@ -1,11 +1,11 @@
 #include "main.h"
 /**
- * exit_bul - Exit Statue Shell
- * @cmd: Parsed Command
- * @input: User Input
+ * exit_cmd - Exit Statue Shell
+ * @command: Parsed Command
+ * @in: User Input
  * @argv:Program Name
- * @c:Excute Count
- * Return: Void (Exit Statue)
+ * @i:Excute Count
+ * Return: Void
  */
 void  exit_cmd(char **command, char *in, char **argv, int i)
 {
@@ -36,9 +36,9 @@ void  exit_cmd(char **command, char *in, char **argv, int i)
 
 
 /**
- * change_dir - Change Dirctorie
- * @cmd: Parsed Command
- * @er: Statue Last Command Excuted
+ * cd_cmd - Change Dirctorie
+ * @command: Parsed Command
+ * @r: Statue Last Command Excuted
  * Return: 0 Succes 1 Failed (For Old Pwd Always 0 Case No Old PWD)
  */
 int cd_cmd(char **command, __attribute__((unused))int r)
@@ -70,9 +70,9 @@ int cd_cmd(char **command, __attribute__((unused))int r)
 }
 
 /**
- * dis_env - Display Enviroment Variable
- * @cmd:Parsed Command
- * @er:Statue of Last command Excuted
+ * env_cmd - Display Enviroment Variable
+ * @command:Parsed Command
+ * @r:Statue of Last command Excuted
  * Return:Always 0
  */
 int env_cmd(__attribute__((unused)) char **command, __attribute__((unused)) int r)
@@ -90,9 +90,9 @@ size_t s;
 }
 
 /**
- * display_help - Displaying Help For Builtin
- * @cmd:Parsed Command
- * @er: Statue Of Last Command Excuted
+ * help_cmd - Displaying Help For Builtin
+ * @command:Parsed Command
+ * @r: Statue Of Last Command Excuted
  * Return: 0 Succes -1 Fail
  */
 int help_cmd(char **command, __attribute__((unused))int r)
@@ -115,41 +115,41 @@ int help_cmd(char **command, __attribute__((unused))int r)
 			return (-1);
 		}
 	}
-	_putchar('\n');
+	put_char('\n');
 	return (0);
 }
 /**
- * echo_bul - Excute Echo Cases
- * @st:Statue Of Last Command Excuted
- * @cmd: Parsed Command
+ * echo_cmd - Excute Echo Cases
+ * @i:Statue Of Last Command Excuted
+ * @command: Parsed Command
  * Return: Always 0 Or Excute Normal Echo
  */
-int echo_bul(char **cmd, int st)
+int echo_cmd(char **command, int i)
 {
-	char *path;
+	char *p;
 	unsigned int  pid = getppid();
 
-	if (_strncmp(cmd[1], "$?", 2) == 0)
+	if (_strncmp(command[1], "$?", 2) == 0)
 	{
-		print_number_in(st);
+		num_int(i);
 		PRINTER("\n");
 	}
-	else if (_strncmp(cmd[1], "$$", 2) == 0)
+	else if (_strncmp(command[1], "$$", 2) == 0)
 	{
-		print_number(pid);
+		prnt_num(pid);
 		PRINTER("\n");
 
 	}
-	else if (_strncmp(cmd[1], "$PATH", 5) == 0)
+	else if (_strncmp(command[1], "$PATH", 5) == 0)
 	{
-		path = _getenv("PATH");
-		PRINTER(path);
+		p = _getenv("PATH");
+		PRINTER(p);
 		PRINTER("\n");
-		free(path);
+		free(p);
 
 	}
 	else
-		return (print_echo(cmd));
+		return (print_echo(command));
 
 	return (1);
 }
