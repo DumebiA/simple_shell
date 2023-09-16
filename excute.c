@@ -11,8 +11,8 @@ int handle_builtin(char **cmd, int er)
 {
 	 bul_t bil[] = {
 		{"cd", cd_cmd},
-		{"env", dis_env},
-		{"help", display_help},
+		{"env", env_cmd},
+		{"help", help_cmd},
 		{"echo", echo_bul},
 		{"history", history_dis},
 		{NULL, NULL}

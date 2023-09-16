@@ -68,47 +68,49 @@ int cd_cmd(char **command, __attribute__((unused))int r)
 	}
 	return (0);
 }
+
 /**
  * dis_env - Display Enviroment Variable
  * @cmd:Parsed Command
  * @er:Statue of Last command Excuted
  * Return:Always 0
  */
-int dis_env(__attribute__((unused)) char **cmd, __attribute__((unused)) int er)
+int env_cmd(__attribute__((unused)) char **command, __attribute__((unused)) int r)
 {
-size_t i;
-	int len;
+size_t s;
+	int i;
 
-	for (i = 0; environ[i] != NULL; i++)
+	for (s = 0; environ[s] != NULL; s++)
 	{
-		len = _strlen(environ[i]);
-		write(1, environ[i], len);
+		i = _strlen(environ[s]);
+		write(1, environ[s], i);
 		write(STDOUT_FILENO, "\n", 1);
 	}
 	return (0);
 }
+
 /**
  * display_help - Displaying Help For Builtin
  * @cmd:Parsed Command
  * @er: Statue Of Last Command Excuted
  * Return: 0 Succes -1 Fail
  */
-int display_help(char **cmd, __attribute__((unused))int er)
+int help_cmd(char **command, __attribute__((unused))int r)
 {
-	int fd, fw, rd = 1;
+	int f, w, i = 1;
 	char c;
 
-	fd = open(cmd[1], O_RDONLY);
-	if (fd < 0)
+	f = open(command[1], O_RDONLY);
+	if (f < 0)
 	{
 		perror("Error");
 		return (0);
 	}
-	while (rd > 0)
+	while (i > 0)
 	{
-		rd = read(fd, &c, 1);
-		fw = write(STDOUT_FILENO, &c, rd);
-		if (fw < 0)
+		i = read(f, &c, 1);
+		w = write(STDOUT_FILENO, &c, i);
+		if (w < 0)
 		{
 			return (-1);
 		}
