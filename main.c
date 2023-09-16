@@ -29,7 +29,7 @@ int main(__attribute__((unused)) int argc, char **argv)
 		cmd = parse_cmd(input);
 		if (_strcmp(cmd[0], "exit") == 0)
 		{
-			exit_bul(cmd, input, argv, counter);
+			exit_cmd(cmd, input, argv, counter);
 		}
 		else if (check_builtin(cmd) == 0)
 		{
