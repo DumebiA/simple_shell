@@ -7,29 +7,29 @@
  * @c:Excute Count
  * Return: Void (Exit Statue)
  */
-void  exit_cmd(char **command, char *input, char **argv, int c)
+void  exit_cmd(char **command, char *in, char **argv, int i)
 {
-	int statue, i = 0;
+	int s, n = 0;
 
 	if (command[1] == NULL)
 	{
-		free(input);
+		free(in);
 		free(command);
 		exit(EXIT_SUCCESS);
 	}
-	while (command[1][i])
+	while (command[1][n])
 	{
-		if (_isalpha(command[1][i++]) != 0)
+		if (_isalpha(command[1][n++]) != 0)
 		{
-			_prerror(argv, c, command);
+			_prerror(argv, i, command);
 			break;
 		}
 		else
 		{
-			statue = _atoi(command[1]);
-			free(input);
+			s = _atoi(command[1]);
+			free(in);
 			free(command);
-			exit(statue);
+			exit(s);
 		}
 	}
 }
@@ -41,30 +41,30 @@ void  exit_cmd(char **command, char *input, char **argv, int c)
  * @er: Statue Last Command Excuted
  * Return: 0 Succes 1 Failed (For Old Pwd Always 0 Case No Old PWD)
  */
-int change_dir(char **cmd, __attribute__((unused))int er)
+int cd_cmd(char **command, __attribute__((unused))int r)
 {
-	int value = -1;
-	char cwd[PATH_MAX];
+	int i = -1;
+	char c[PATH_MAX];
 
-	if (cmd[1] == NULL)
-		value = chdir(getenv("HOME"));
-	else if (_strcmp(cmd[1], "-") == 0)
+	if (command[1] == NULL)
+		i = chdir(getenv("HOME"));
+	else if (_strcmp(command[1], "-") == 0)
 	{
-		value = chdir(getenv("OLDPWD"));
+		i = chdir(getenv("OLDPWD"));
 	}
 	else
-		value = chdir(cmd[1]);
+		i = chdir(command[1]);
 
-	if (value == -1)
+	if (i == -1)
 	{
 		perror("hsh");
 		return (-1);
 	}
-	else if (value != -1)
+	else if (i != -1)
 	{
-		getcwd(cwd, sizeof(cwd));
+		getcwd(c, sizeof(c));
 		setenv("OLDPWD", getenv("PWD"), 1);
-		setenv("PWD", cwd, 1);
+		setenv("PWD", c, 1);
 	}
 	return (0);
 }

@@ -84,10 +84,10 @@ void hashtag_handle(char *buff);
 int history(char *input);
 int history_dis(char **cmd, int er);
 int dis_env(char **cmd, int er);
-int change_dir(char **cmd, int er);
+int cd_cmd(char **command, int r);
 int display_help(char **cmd, int er);
 int echo_bul(char **cmd, int er);
-void  exit_cmd(char **command, char *input, char **argv, int c);
+void  exit_cmd(char **command, char *in, char **argv, int i);
 int print_echo(char **cmd);
 
 /** ####error handle and Printer ####*/
