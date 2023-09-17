@@ -84,7 +84,7 @@ void exit_bul_for_file(char **cmd, char *line, FILE *fd)
 			perror("illegal number");
 		}
 	}
-	statue = _atoi(cmd[1]);
+	statue = conv_int(cmd[1]);
 	free(line);
 	free(cmd);
 	fclose(fd);

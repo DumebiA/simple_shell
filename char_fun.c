@@ -36,16 +36,16 @@ i = 0;
 }
 
 /**
- * _strlen - lenght of string
- * @s:char
- * Return:int
+ * str_len - string length
+ * @c:character
+ * Return: integar i
  */
 
-int _strlen(char *s)
+int str_len(char *c)
 {
 	int i;
 
-		for (i = 0; s[i] != '\0'; i++)
+		for (i = 0; c[i] != '\0'; i++)
 		{
 			continue;
 		}
@@ -53,42 +53,42 @@ return (i);
 }
 
 /**
- * _atoi - convert to a int
- * @s:string
- * Return:int
+ * conv_int - convert to integar
+ * @c:string caharcter
+ * Return:integar
  */
-int _atoi(char *s)
+int conv_int(char *c)
 {
-int i, j, n, x;
+int i, j, n, o;
 
 	i = n = 0;
-	x = 1;
-	while ((s[i] < '0' || s[i] > '9') && (s[i] != '\0'))
+	o = 1;
+	while ((c[i] < '0' || c[i] > '9') && (c[i] != '\0'))
 	{
-		if (s[i] == '-')
-			x *= -1;
+		if (c[i] == '-')
+			o *= -1;
 		i++;
 	}
 	j = i;
-	while ((s[j] >= '0') && (s[j] <= '9'))
+	while ((c[j] >= '0') && (c[j] <= '9'))
 	{
-		n = (n * 10) + x * ((s[j]) - '0');
+		n = (n * 10) + o * ((c[j]) - '0');
 		j++;
 	}
 	return (n);
 }
 /**
- * _puts - print a string
- * @str:pointer char
+ * put_str - get a string
+ * @c:pointer character
  * return:void
  */
-void _puts(char *str)
+void put_str(char *c)
 {
 	int i;
 
-	for (i = 0; str[i] != '\0'; i++)
+	for (i = 0; c[i] != '\0'; i++)
 	{
-		put_char(str[i]);
+		put_char(c[i]);
 	}
 put_char('\n');
 return;

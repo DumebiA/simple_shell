@@ -94,7 +94,7 @@ char *_strdup(char *str)
 	size_t len, i;
 	char *str2;
 
-	len = _strlen(str);
+	len = str_len(str);
 	str2 = malloc(sizeof(char) * (len + 1));
 	if (!str2)
 	{

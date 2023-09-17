@@ -41,7 +41,7 @@ char *build(char *token, char *value)
 	char *cmd;
 	size_t len;
 
-	len = _strlen(value) + _strlen(token) + 2;
+	len = str_len(value) + str_len(token) + 2;
 	cmd = malloc(sizeof(char) * len);
 	if (cmd == NULL)
 	{
@@ -67,12 +67,12 @@ char *_getenv(char *name)
 	char *value;
 	int i, x, j;
 
-	nl = _strlen(name);
+	nl = str_len(name);
 	for (i = 0 ; environ[i]; i++)
 	{
 		if (_strncmp(name, environ[i], nl) == 0)
 		{
-			vl = _strlen(environ[i]) - nl;
+			vl = str_len(environ[i]) - nl;
 			value = malloc(sizeof(char) * vl);
 			if (!value)
 			{

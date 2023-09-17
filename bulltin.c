@@ -26,7 +26,7 @@ void  exit_cmd(char **command, char *in, char **argv, int i)
 		}
 		else
 		{
-			s = _atoi(command[1]);
+			s = conv_int(command[1]);
 			free(in);
 			free(command);
 			exit(s);
@@ -82,7 +82,7 @@ size_t s;
 
 	for (s = 0; environ[s] != NULL; s++)
 	{
-		i = _strlen(environ[s]);
+		i = str_len(environ[s]);
 		write(1, environ[s], i);
 		write(STDOUT_FILENO, "\n", 1);
 	}

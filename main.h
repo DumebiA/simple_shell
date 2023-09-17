@@ -9,7 +9,7 @@ extern char **environ;
 
 #define BUFSIZE 1024
 #define DELIM " \t\r\n\a"
-#define PRINTER(c) (write(STDOUT_FILENO, c, _strlen(c)))
+#define PRINTER(c) (write(STDOUT_FILENO, c, str_len(c)))
 
 /**###### LIBS USED ######*/
 
@@ -34,10 +34,10 @@ extern char **environ;
 char *_strtok(char *str, const char *tok);
 unsigned int check_delim(char c, const char *str);
 char *strn_cpy(char *dest, char *src, int o);
-int _strlen(char *s);
+int str_len(char *c);
 int put_char(char c);
-int _atoi(char *s);
-void _puts(char *str);
+int conv_int(char *c);
+void put_str(char *c);
 int _strcmp(char *s1, char *s2);
 int _isalpha(int c);
 void array_rev(char *arr, int len);
