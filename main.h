@@ -66,17 +66,17 @@ char *_getline(void);
 
 /** ###### Command parser and extractor ###*/
 
-int path_cmd(char **line);
-char *_getenv(char *name);
+int path_func(char **command);
+char *get_env(char *o);
 char **parse_cmd(char *cmd);
 int built_cmd(char **command, int r);
 void read_func(char *fn, char **argv);
-char *build(char *token, char *value);
+char *bld_cmd(char *c, char *val);
 int check_builtin(char **cmd);
 void creat_envi(char **envi);
 int check_cmd(char **command, char *in, int c, char **argv);
 void treat_func(char *line, int counter, FILE *fd, char **argv);
-void exit_bul_for_file(char **cmd, char *line, FILE *fd);
+void exit_file(char **cmd, char *line, FILE *fd);
 
 /**
  * BUILT INs

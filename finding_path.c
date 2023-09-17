@@ -5,90 +5,90 @@
  * @cmd: Parsed Input
  * Return: 1  Failure  0  Success.
  */
-int path_cmd(char **cmd)
+int path_func(char **command)
 {
-	char *path, *value, *cmd_path;
+	char *c, *v, *_path;
 	struct stat buf;
 
-	path = _getenv("PATH");
-	value = _strtok(path, ":");
-	while (value != NULL)
+	c = get_env("PATH");
+	v = _strtok(c, ":");
+	while (v != NULL)
 	{
-		cmd_path = build(*cmd, value);
-		if (stat(cmd_path, &buf) == 0)
+		_path = bld_cmd(*command, v);
+		if (stat(_path, &buf) == 0)
 		{
-			*cmd = _strdup(cmd_path);
-			free(cmd_path);
-			free(path);
+			*command = _strdup(_path);
+			free(_path);
+			free(c);
 			return (0);
 		}
-		free(cmd_path);
-		value = _strtok(NULL, ":");
+		free(_path);
+		v = _strtok(NULL, ":");
 	}
-	free(path);
+	free(c);
 
 	return (1);
 }
 /**
- * build - Build Command
+ * bld_cmd - Build Command
  * @token: Excutable Command
  * @value: Dirctory Conatining Command
  *
  * Return: Parsed Full Path Of Command Or NULL Case Failed
  */
-char *build(char *token, char *value)
+char *bld_cmd(char *c, char *val)
 {
-	char *cmd;
+	char *command;
 	size_t len;
 
-	len = str_len(value) + str_len(token) + 2;
-	cmd = malloc(sizeof(char) * len);
-	if (cmd == NULL)
+	len = str_len(val) + str_len(c) + 2;
+	command = malloc(sizeof(char) * len);
+	if (command == NULL)
 	{
 		return (NULL);
 	}
 
-	memset(cmd, 0, len);
+	memset(command, 0, len);
 
-	cmd = _strcat(cmd, value);
-	cmd = _strcat(cmd, "/");
-	cmd = _strcat(cmd, token);
+	command = _strcat(command, val);
+	command = _strcat(command, "/");
+	command = _strcat(command, c);
 
-	return (cmd);
+	return (command);
 }
 /**
- * _getenv - Gets The Value Of Enviroment Variable By Name
- * @name: Environment Variable Name
+ * get_env - Gets The Value Of Enviroment Variable By Name
+ * @o: Environment Variable Name
  * Return: The Value of the Environment Variable Else NULL.
  */
-char *_getenv(char *name)
+char *get_env(char *o)
 {
-	size_t nl, vl;
-	char *value;
-	int i, x, j;
+	size_t n, v;
+	char *c;
+	int i, t, x;
 
-	nl = str_len(name);
+	n = str_len(o);
 	for (i = 0 ; environ[i]; i++)
 	{
-		if (_strncmp(name, environ[i], nl) == 0)
+		if (_strncmp(o, environ[i], n) == 0)
 		{
-			vl = str_len(environ[i]) - nl;
-			value = malloc(sizeof(char) * vl);
-			if (!value)
+			v = str_len(environ[i]) - n;
+			c = malloc(sizeof(char) * v);
+			if (!c)
 			{
-				free(value);
-				perror("unable to alloc");
+				free(c);
+			perror("unable to alloc");
 				return (NULL);
 			}
 
-			j = 0;
-			for (x = nl + 1; environ[i][x]; x++, j++)
+			x = 0;
+			for (t = n + 1; environ[i][t]; t++, x++)
 			{
-				value[j] = environ[i][x];
+				c[x] = environ[i][t];
 			}
-			value[j] = '\0';
+			c[x] = '\0';
 
-			return (value);
+			return (c);
 		}
 	}
 

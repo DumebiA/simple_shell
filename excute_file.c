@@ -22,7 +22,7 @@ void read_func(char *fn, char **argv)
 	while ((getline(&c, &ln, f)) != -1)
 	{
 		counter++;
-		treat_file(c, counter, f, argv);
+		treat_func(c, counter, f, argv);
 
 	}
 	if (c)
@@ -38,59 +38,56 @@ void read_func(char *fn, char **argv)
  * @argv:Program Name
  * Return : Excute A line void
  */
-void treat_file(char *line, int counter, FILE *fp, char **argv)
+void treat_func(char *c, int i, FILE *f, char **argv)
 {
-	char **cmd;
-	int st = 0;
+	char **command;
+	int s = 0;
 
-	cmd = parse_cmd(line);
+	command = parse_cmd(c);
 
-		if (_strncmp(cmd[0], "exit", 4) == 0)
+		if (_strncmp(command[0], "exit", 4) == 0)
 		{
-			exit_bul_for_file(cmd, line, fp);
+			exit_file(command, c, f);
 		}
-		else if (check_builtin(cmd) == 0)
+		else if (check_builtin(command) == 0)
 		{
-			st = built_cmd(cmd, st);
-			free(cmd);
+			s = built_cmd(command, s);
+			free(command);
 		}
 		else
 		{
-			st = check_cmd(cmd, line, counter, argv);
-			free(cmd);
+			s = check_cmd(command, c, i, argv);
+			free(command);
 		}
 }
 /**
- * exit_bul_for_file - Exit Shell Case Of File
- * @line: Line From A File
- * @cmd: Parsed Command
- * @fd:File Descriptor
+ * exit_file - Exit Shell Case Of File
+ * @c: Line From A File
+ * @command: Parsed Command
+ * @d:File Descriptor
  * Return : Case Of Exit in A File Line
  */
-void exit_bul_for_file(char **cmd, char *line, FILE *fd)
+void exit_file(char **command, char *c, FILE *d)
 {
-	int statue, i = 0;
+	int s, i = 0;
 
-	if (cmd[1] == NULL)
+	if (command[1] == NULL)
 	{
-		free(line);
-		free(cmd);
-		fclose(fd);
+		free(c);
+		free(command);
+		fclose(d);
 		exit(errno);
 	}
-	while (cmd[1][i])
+	while (command[1][i])
 	{
-		if (_isalpha(cmd[1][i++]) < 0)
+		if (_isalpha(command[1][i++]) < 0)
 		{
 			perror("illegal number");
 		}
 	}
-	statue = conv_int(cmd[1]);
-	free(line);
-	free(cmd);
-	fclose(fd);
-	exit(statue);
-
-
-
+	s = conv_int(command[1]);
+	free(c);
+	free(command);
+	fclose(d);
+	exit(s);
 }

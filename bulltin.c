@@ -142,7 +142,7 @@ int echo_cmd(char **command, int i)
 	}
 	else if (_strncmp(command[1], "$PATH", 5) == 0)
 	{
-		p = _getenv("PATH");
+		p = get_env("PATH");
 		PRINTER(p);
 		PRINTER("\n");
 		free(p);
