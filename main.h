@@ -61,7 +61,7 @@ void free_all(char **input, char *line);
 /**###### INPUT Function ######*/
 
 void prompt(void);
-void signal_to_handel(int sig);
+void sign_han(int i);
 char *_getline(void);
 
 /** ###### Command parser and extractor ###*/
@@ -70,12 +70,12 @@ int path_cmd(char **line);
 char *_getenv(char *name);
 char **parse_cmd(char *cmd);
 int built_cmd(char **command, int r);
-void read_file(char *filename, char **argv);
+void read_func(char *fn, char **argv);
 char *build(char *token, char *value);
 int check_builtin(char **cmd);
 void creat_envi(char **envi);
-int check_cmd(char **tokens, char *line, int count, char **argv);
-void treat_file(char *line, int counter, FILE *fd, char **argv);
+int check_cmd(char **command, char *in, int c, char **argv);
+void treat_func(char *line, int counter, FILE *fd, char **argv);
 void exit_bul_for_file(char **cmd, char *line, FILE *fd);
 
 /**

@@ -13,8 +13,8 @@ int main(__attribute__((unused)) int argc, char **argv)
 	int counter = 0, statue = 1, st = 0;
 
 	if (argv[1] != NULL)
-		read_file(argv[1], argv);
-	signal(SIGINT, signal_to_handel);
+		read_func(argv[1], argv);
+	signal(SIGINT, sign_han);
 	while (statue)
 	{
 		counter++;
@@ -33,7 +33,7 @@ int main(__attribute__((unused)) int argc, char **argv)
 		}
 		else if (check_builtin(cmd) == 0)
 		{
-			st = handle_builtin(cmd, st);
+			st = built_cmd(cmd, st);
 			free_all(cmd, input);
 			continue;
 		}

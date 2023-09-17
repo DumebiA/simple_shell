@@ -38,50 +38,50 @@ int built_cmd(char **command, int r)
  * @argv:Program Name
  * Return: 1 Case Command Null -1 Wrong Command 0 Command Excuted
  */
-int check_cmd(char **cmd, char *input, int c, char **argv)
+int check_cmd(char **command, char *in, int c, char **argv)
 {
-	int status;
-	pid_t pid;
+	int s;
+	pid_t p;
 
-	if (*cmd == NULL)
+	if (*command == NULL)
 	{
 		return (-1);
 	}
 
-	pid = fork();
-	if (pid == -1)
+	p = fork();
+	if (p == -1)
 	{
 		perror("Error");
 		return (-1);
 	}
 
-	if (pid == 0)
+	if (p == 0)
 	{
-		if (_strncmp(*cmd, "./", 2) != 0 && _strncmp(*cmd, "/", 1) != 0)
+		if (_strncmp(*command, "./", 2) != 0 && _strncmp(*command, "/", 1) != 0)
 		{
-			path_cmd(cmd);
+			path_cmd(command);
 		}
 
-		if (execve(*cmd, cmd, environ) == -1)
+		if (execve(*command, command, environ) == -1)
 		{
-			print_error(cmd[0], c, argv);
-			free(input);
-			free(cmd);
+			print_error(command[0], c, argv);
+			free(in);
+			free(command);
 			exit(EXIT_FAILURE);
 		}
 		return (EXIT_SUCCESS);
 	}
-	wait(&status);
+	wait(&s);
 	return (0);
 }
 /**
- * signal_to_handel - Handle ^C
- * @sig:Captured Signal
+ * sign_han - Handle
+ * @i:Captured Signal
  * Return: Void
  */
-void signal_to_handel(int sig)
+void sign_han(int i)
 {
-	if (sig == SIGINT)
+	if (i == SIGINT)
 	{
 		PRINTER("\n$ ");
 	}

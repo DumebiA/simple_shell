@@ -1,32 +1,33 @@
 #include "main.h"
+
 /**
- * read_file - Read Command From File
- * @filename:Filename
+ * read_func - Read Command From File
+ * @fn:Filename
  * @argv:Program Name
  * Return: -1 or  0
  */
 
-void read_file(char *filename, char **argv)
+void read_func(char *fn, char **argv)
 {
-	FILE *fp;
-	char *line = NULL;
-	size_t len = 0;
+	FILE *f;
+	char *c = NULL;
+	size_t ln = 0;
 	int counter = 0;
 
-	fp = fopen(filename, "r");
-	if (fp == NULL)
+	f = fopen(fn, "r");
+	if (f == NULL)
 	{
 		exit(EXIT_FAILURE);
 	}
-	while ((getline(&line, &len, fp)) != -1)
+	while ((getline(&c, &ln, f)) != -1)
 	{
 		counter++;
-		treat_file(line, counter, fp, argv);
+		treat_file(c, counter, f, argv);
 
 	}
-	if (line)
-		free(line);
-	fclose(fp);
+	if (c)
+		free(c);
+	fclose(f);
 	exit(0);
 }
 /**
@@ -50,7 +51,7 @@ void treat_file(char *line, int counter, FILE *fp, char **argv)
 		}
 		else if (check_builtin(cmd) == 0)
 		{
-			st = handle_builtin(cmd, st);
+			st = built_cmd(cmd, st);
 			free(cmd);
 		}
 		else
