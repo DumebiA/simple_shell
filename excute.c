@@ -1,15 +1,15 @@
 #include "main.h"
 
 /**
- * handle_builtin - Handle Builtin Command
- * @cmd: Parsed Command
- * @er:statue of last Excute
+ * built_cmd - Handle Builtin Command
+ * @command: Parsed Command
+ * @r:statue of last Excute
  * Return: -1 Fail 0 Succes (Return :Excute Builtin)
  */
 
-int handle_builtin(char **cmd, int er)
+int built_cmd(char **command, int r)
 {
-	 bul_t bil[] = {
+	 bul_t bi[] = {
 		{"cd", cd_cmd},
 		{"env", env_cmd},
 		{"help", help_cmd},
@@ -17,15 +17,15 @@ int handle_builtin(char **cmd, int er)
 		{"history", history_dis},
 		{NULL, NULL}
 	};
-	int i = 0;
+	int n = 0;
 
-	while ((bil + i)->command)
+	while ((bi + n)->command)
 	{
-		if (_strcmp(cmd[0], (bil + i)->command) == 0)
+		if (_strcmp(command[0], (bi + n)->command) == 0)
 		{
-			return ((bil + i)->fun(cmd, er));
+			return ((bi + n)->fun(command, r));
 		}
-		i++;
+		n++;
 	}
 	return (-1);
 }

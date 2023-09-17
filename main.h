@@ -69,7 +69,7 @@ char *_getline(void);
 int path_cmd(char **line);
 char *_getenv(char *name);
 char **parse_cmd(char *cmd);
-int handle_builtin(char **cmd, int er);
+int built_cmd(char **command, int r);
 void read_file(char *filename, char **argv);
 char *build(char *token, char *value);
 int check_builtin(char **cmd);
