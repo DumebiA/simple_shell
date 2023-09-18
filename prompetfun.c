@@ -20,7 +20,7 @@ void print_error(char *input, int counter, char **argv)
 
 	PRINTER(argv[0]);
 	PRINTER(": ");
-	er = _itoa(counter);
+	er = _intochar(counter);
 	PRINTER(er);
 	free(er);
 	PRINTER(": ");

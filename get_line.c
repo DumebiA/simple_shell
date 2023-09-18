@@ -4,7 +4,7 @@
 * _getline - Read The Input By User From Stdin
 * Return: Input
 */
-char *_getline()
+char *get_line()
 {
 int i, buffsize = BUFSIZE, rd;
 char c = 0;
@@ -33,7 +33,7 @@ char *buff = malloc(buffsize);
 		}
 		if (i >= buffsize)
 		{
-			buff = _realloc(buff, buffsize, buffsize + 1);
+			buff = re_alloc(buff, buffsize, buffsize + 1);
 			if (buff == NULL)
 			{
 				return (NULL);
@@ -41,7 +41,7 @@ char *buff = malloc(buffsize);
 		}
 	}
 	buff[i] = '\0';
-	hashtag_handle(buff);
+	hash_tag(buff);
 	return (buff);
 }
 
@@ -50,7 +50,7 @@ char *buff = malloc(buffsize);
  * @buff: input;
  * Return:void
  */
-void hashtag_handle(char *buff)
+void hash_tag(char *buff)
 {
 	int i;
 

@@ -19,7 +19,7 @@ void  exit_cmd(char **command, char *in, char **argv, int i)
 	}
 	while (command[1][n])
 	{
-		if (_isalpha(command[1][n++]) != 0)
+		if (_alpha(command[1][n++]) != 0)
 		{
 			_prerror(argv, i, command);
 			break;
@@ -48,7 +48,7 @@ int cd_cmd(char **command, __attribute__((unused))int r)
 
 	if (command[1] == NULL)
 		i = chdir(getenv("HOME"));
-	else if (_strcmp(command[1], "-") == 0)
+	else if (str_cmp(command[1], "-") == 0)
 	{
 		i = chdir(getenv("OLDPWD"));
 	}
@@ -129,18 +129,18 @@ int echo_cmd(char **command, int i)
 	char *p;
 	unsigned int  pid = getppid();
 
-	if (_strncmp(command[1], "$?", 2) == 0)
+	if (strn_cmp(command[1], "$?", 2) == 0)
 	{
 		num_int(i);
 		PRINTER("\n");
 	}
-	else if (_strncmp(command[1], "$$", 2) == 0)
+	else if (strn_cmp(command[1], "$$", 2) == 0)
 	{
 		prnt_num(pid);
 		PRINTER("\n");
 
 	}
-	else if (_strncmp(command[1], "$PATH", 5) == 0)
+	else if (strn_cmp(command[1], "$PATH", 5) == 0)
 	{
 		p = get_env("PATH");
 		PRINTER(p);
@@ -149,7 +149,7 @@ int echo_cmd(char **command, int i)
 
 	}
 	else
-		return (print_echo(command));
+		return (showecho(command));
 
 	return (1);
 }

@@ -8,7 +8,7 @@
  */
 void _prerror(char **argv, int c, char **cmd)
 {
-	char *er = _itoa(c);
+	char *er = _intochar(c);
 
 	PRINTER(argv[0]);
 	PRINTER(": ");

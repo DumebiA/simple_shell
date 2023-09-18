@@ -6,7 +6,7 @@
  * @s:Statue Of Last Excute
  * Return: 0 Succes -1 Fail
  */
-int history_dis(__attribute__((unused))char **c, __attribute__((unused))int s)
+int display_his(__attribute__((unused))char **c, __attribute__((unused))int s)
 {
 	char *filename = ".simple_shell_history";
 	FILE *fp;
@@ -23,7 +23,7 @@ int history_dis(__attribute__((unused))char **c, __attribute__((unused))int s)
 	while ((getline(&line, &len, fp)) != -1)
 	{
 		counter++;
-		er = _itoa(counter);
+		er = _intochar(counter);
 		PRINTER(er);
 		free(er);
 		PRINTER(" ");
@@ -40,7 +40,7 @@ int history_dis(__attribute__((unused))char **c, __attribute__((unused))int s)
  * @cmd: Parsed Command
  * Return: 0 Succes -1 Fail
  */
-int print_echo(char **cmd)
+int showecho(char **cmd)
 {
 	pid_t pid;
 	int status;

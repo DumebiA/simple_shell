@@ -45,11 +45,11 @@ void treat_func(char *c, int i, FILE *f, char **argv)
 
 	command = parse_cmd(c);
 
-		if (_strncmp(command[0], "exit", 4) == 0)
+		if (strn_cmp(command[0], "exit", 4) == 0)
 		{
 			exit_file(command, c, f);
 		}
-		else if (check_builtin(command) == 0)
+		else if (_builtin(command) == 0)
 		{
 			s = built_cmd(command, s);
 			free(command);
@@ -80,7 +80,7 @@ void exit_file(char **command, char *c, FILE *d)
 	}
 	while (command[1][i])
 	{
-		if (_isalpha(command[1][i++]) < 0)
+		if (_alpha(command[1][i++]) < 0)
 		{
 			perror("illegal number");
 		}

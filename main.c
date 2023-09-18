@@ -20,21 +20,21 @@ int main(__attribute__((unused)) int argc, char **argv)
 		counter++;
 		if (isatty(STDIN_FILENO))
 			prompt();
-		input = _getline();
+		input = get_line();
 		if (input[0] == '\0')
 		{
 			continue;
 		}
-		history(input);
+		his_tory(input);
 		cmd = parse_cmd(input);
-		if (_strcmp(cmd[0], "exit") == 0)
+		if (str_cmp(cmd[0], "exit") == 0)
 		{
 			exit_cmd(cmd, input, argv, counter);
 		}
-		else if (check_builtin(cmd) == 0)
+		else if (_builtin(cmd) == 0)
 		{
 			st = built_cmd(cmd, st);
-			free_all(cmd, input);
+			free_array(cmd, input);
 			continue;
 		}
 		else
@@ -42,7 +42,7 @@ int main(__attribute__((unused)) int argc, char **argv)
 			st = check_cmd(cmd, input, counter, argv);
 
 		}
-		free_all(cmd, input);
+		free_array(cmd, input);
 	}
 	return (statue);
 }
@@ -52,7 +52,7 @@ int main(__attribute__((unused)) int argc, char **argv)
  * @cmd:command to check
  * Return: 0 Succes -1 Fail
  */
-int check_builtin(char **cmd)
+int _builtin(char **c)
 {
 	bul_t fun[] = {
 		{"cd", NULL},
@@ -62,14 +62,14 @@ int check_builtin(char **cmd)
 		{NULL, NULL}
 	};
 	int i = 0;
-		if (*cmd == NULL)
+		if (*c == NULL)
 	{
 		return (-1);
 	}
 
 	while ((fun + i)->command)
 	{
-		if (_strcmp(cmd[0], (fun + i)->command) == 0)
+		if (str_cmp(c[0], (fun + i)->command) == 0)
 			return (0);
 		i++;
 	}
@@ -80,11 +80,11 @@ int check_builtin(char **cmd)
  * @envi: Array of Enviroment Variable
  * Return: Void
  */
-void creat_envi(char **envi)
+void create_env(char **env)
 {
 	int i;
 
 	for (i = 0; environ[i]; i++)
-		envi[i] = _strdup(environ[i]);
-	envi[i] = NULL;
+		env[i] = str_dup(environ[i]);
+	env[i] = NULL;
 }

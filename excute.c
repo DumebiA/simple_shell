@@ -14,14 +14,14 @@ int built_cmd(char **command, int r)
 		{"env", env_cmd},
 		{"help", help_cmd},
 		{"echo", echo_cmd},
-		{"history", history_dis},
+		{"history", display_his},
 		{NULL, NULL}
 	};
 	int n = 0;
 
 	while ((bi + n)->command)
 	{
-		if (_strcmp(command[0], (bi + n)->command) == 0)
+		if (str_cmp(command[0], (bi + n)->command) == 0)
 		{
 			return ((bi + n)->fun(command, r));
 		}
@@ -57,7 +57,7 @@ int check_cmd(char **command, char *in, int c, char **argv)
 
 	if (p == 0)
 	{
-		if (_strncmp(*command, "./", 2) != 0 && _strncmp(*command, "/", 1) != 0)
+		if (strn_cmp(*command, "./", 2) != 0 && strn_cmp(*command, "/", 1) != 0)
 		{
 			path_func(command);
 		}

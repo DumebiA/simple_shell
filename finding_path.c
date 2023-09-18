@@ -17,7 +17,7 @@ int path_func(char **command)
 		_path = bld_cmd(*command, v);
 		if (stat(_path, &buf) == 0)
 		{
-			*command = _strdup(_path);
+			*command = str_dup(_path);
 			free(_path);
 			free(c);
 			return (0);
@@ -50,9 +50,9 @@ char *bld_cmd(char *c, char *val)
 
 	memset(command, 0, len);
 
-	command = _strcat(command, val);
-	command = _strcat(command, "/");
-	command = _strcat(command, c);
+	command = str_cat(command, val);
+	command = str_cat(command, "/");
+	command = str_cat(command, c);
 
 	return (command);
 }
@@ -70,7 +70,7 @@ char *get_env(char *o)
 	n = str_len(o);
 	for (i = 0 ; environ[i]; i++)
 	{
-		if (_strncmp(o, environ[i], n) == 0)
+		if (strn_cmp(o, environ[i], n) == 0)
 		{
 			v = str_len(environ[i]) - n;
 			c = malloc(sizeof(char) * v);

@@ -7,7 +7,7 @@
  *@new_size: New Size Of The Pointer
  *Return: Void Pointer Rellocated Memory
  */
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+void *re_alloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
 	void *result;
 
@@ -23,12 +23,12 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 		return (NULL);
 	if (ptr == NULL)
 	{
-		fill_an_array(result, '\0', new_size);
+		fill_array(result, '\0', new_size);
 		free(ptr);
 	}
 	else
 	{
-		_memcpy(result, ptr, old_size);
+		mem_cpy(result, ptr, old_size);
 		free(ptr);
 	}
 	return (result);
@@ -40,7 +40,7 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
  * @line:Char Pointer
  * Return: Void
  */
-void free_all(char **cmd, char *line)
+void free_array(char **cmd, char *line)
 {
 	free(cmd);
 	free(line);
@@ -55,7 +55,7 @@ void free_all(char **cmd, char *line)
  * @n: Size (How Much You Will Copy)
  *Return: Void Pointer
  */
-char *_memcpy(char *dest, char *src, unsigned int n)
+char *mem_cpy(char *dest, char *src, unsigned int n)
 {
 	unsigned int i;
 
@@ -72,7 +72,7 @@ char *_memcpy(char *dest, char *src, unsigned int n)
  * @len:Length Int
  *Return: Void Pointer
  */
-void *fill_an_array(void *a, int el, unsigned int len)
+void *fill_array(void *a, int el, unsigned int len)
 {
 	char *p = a;
 	unsigned int i = 0;
@@ -90,7 +90,7 @@ void *fill_an_array(void *a, int el, unsigned int len)
  * @size: Size
  * Return: Void Pointer
  */
-void *_calloc(unsigned int size)
+void *ca_alloc(unsigned int size)
 {
 	char *a;
 	unsigned int i;

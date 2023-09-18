@@ -5,7 +5,7 @@
  * @src:Source
  * Return: Copie Of Char *
  */
-char *_strcpy(char *dest, char *src)
+char *str_cpy(char *dest, char *src)
 {
 int i;
 
@@ -24,7 +24,7 @@ return (dest);
  * @src:Second String
  * Return:First String + Second String Char *
  */
-char *_strcat(char *dest, char *src)
+char *str_cat(char *dest, char *src)
 {
 	char *s = dest;
 
@@ -48,7 +48,7 @@ char *_strcat(char *dest, char *src)
  * @c:Char To Search For
  * Return: Pointer To Char*
  */
-char *_strchr(char *s, char c)
+char *str_chr(char *s, char c)
 {
 
 	do		{
@@ -69,7 +69,7 @@ return (s);
  *
  * Return: 1 If The Strings Don't Match Otherwise 0
  */
-int _strncmp(const char *s1, const char *s2, size_t n)
+int strn_cmp(const char *s1, const char *s2, size_t n)
 {
 	size_t i;
 
@@ -89,7 +89,7 @@ int _strncmp(const char *s1, const char *s2, size_t n)
  * @str:String
  * Return: Duplicate String Failed Null
  */
-char *_strdup(char *str)
+char *str_dup(char *str)
 {
 	size_t len, i;
 	char *str2;

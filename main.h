@@ -38,31 +38,31 @@ int str_len(char *c);
 int put_char(char c);
 int conv_int(char *c);
 void put_str(char *c);
-int _strcmp(char *s1, char *s2);
-int _isalpha(int c);
-void array_rev(char *arr, int len);
-int intlen(int num);
-char *_itoa(unsigned int n);
-char *_strcat(char *dest, char *src);
-char *_strcpy(char *dest, char *src);
-char *_strchr(char *s, char c);
-int _strncmp(const char *s1, const char *s2, size_t n);
-char *_strdup(char *str);
+int str_cmp(char *s1, char *s2);
+int _alpha(int c);
+void reverse_array(char *arr, int len);
+int int_len(int num);
+char *_intochar(unsigned int n);
+char *str_cat(char *dest, char *src);
+char *str_cpy(char *dest, char *src);
+char *str_chr(char *s, char c);
+int strn_cmp(const char *s1, const char *s2, size_t n);
+char *str_dup(char *str);
 
 /**###### MEMORIE  MANGMENT ####*/
 
-void free_env(char **env);
-void *fill_an_array(void *a, int el, unsigned int len);
-char *_memcpy(char *dest, char *src, unsigned int n);
-void *_calloc(unsigned int size);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-void free_all(char **input, char *line);
+void frenv(char **env);
+void *fill_array(void *a, int el, unsigned int len);
+char *mem_cpy(char *dest, char *src, unsigned int n);
+void *ca_alloc(unsigned int size);
+void *re_alloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void free_array(char **input, char *line);
 
 /**###### INPUT Function ######*/
 
 void prompt(void);
 void sign_han(int i);
-char *_getline(void);
+char *get_line(void);
 
 /** ###### Command parser and extractor ###*/
 
@@ -72,8 +72,8 @@ char **parse_cmd(char *cmd);
 int built_cmd(char **command, int r);
 void read_func(char *fn, char **argv);
 char *bld_cmd(char *c, char *val);
-int check_builtin(char **cmd);
-void creat_envi(char **envi);
+int _builtin(char **cmd);
+void create_env(char **envi);
 int check_cmd(char **command, char *in, int c, char **argv);
 void treat_func(char *line, int counter, FILE *fd, char **argv);
 void exit_file(char **cmd, char *line, FILE *fd);
@@ -82,15 +82,15 @@ void exit_file(char **cmd, char *line, FILE *fd);
  * BUILT INs
  */
 
-void hashtag_handle(char *buff);
-int history(char *input);
-int history_dis(char **cmd, int er);
+void hash_tag(char *buff);
+int his_tory(char *input);
+int display_his(char **cmd, int er);
 int env_cmd(char **cmd, int er);
 int cd_cmd(char **command, int r);
 int help_cmd(char **command, int r);
 int echo_cmd(char **command, int i);
 void exit_cmd(char **command, char *in, char **argv, int i);
-int print_echo(char **cmd);
+int showecho(char **cmd);
 
 /**
  * error handle and Printer

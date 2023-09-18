@@ -6,7 +6,7 @@
  * @s2:String 2
  * Return: 0 If Identical Otherwise How Much Diffrent
  */
-int _strcmp(char *s1, char *s2)
+int str_cmp(char *s1, char *s2)
 {
 int cmp = 0, i, len1, len2;
 len1 = str_len(s1);
@@ -33,7 +33,7 @@ len2 = str_len(s2);
  *@c: Character
  * Return: 1 If True 0 If Not
  */
-int _isalpha(int c)
+int _alpha(int c)
 {
 if (((c >= 97) && (c <= 122)) || ((c >= 65) && (c <= 90)))
 {
@@ -49,12 +49,12 @@ return (0);
  * @n: Int To Convert
  * Return: Char Pointer
  */
-char *_itoa(unsigned int n)
+char *_intochar(unsigned int n)
 {
 	int len = 0, i = 0;
 	char *s;
 
-	len = intlen(n);
+	len = int_len(n);
 	s = malloc(len + 1);
 	if (!s)
 		return (NULL);
@@ -66,7 +66,7 @@ char *_itoa(unsigned int n)
 		i++;
 	}
 	s[i] = (n % 10) + '0';
-	array_rev(s, len);
+	reverse_array(s, len);
 	s[i + 1] = '\0';
 	return (s);
 }
@@ -76,7 +76,7 @@ char *_itoa(unsigned int n)
  * @len:Length Of Array
  * Return: Void(Reverse Array)
  */
-void array_rev(char *arr, int len)
+void reverse_array(char *arr, int len)
 {
 	int i;
 	char tmp;
@@ -93,7 +93,7 @@ void array_rev(char *arr, int len)
  * @num: Given Int
  * Return: Length Of Int
  */
-int intlen(int num)
+int int_len(int num)
 {
 	int len = 0;
 

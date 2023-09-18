@@ -4,7 +4,7 @@
  * @input: User Input
  * Return: -1 Fail 0 Succes
  */
-int history(char *input)
+int his_tory(char *input)
 {
 	char *filename = ".simple_shell_history";
 	ssize_t fd, w;
@@ -30,7 +30,7 @@ int history(char *input)
  * @env:  Environment variables.
  * Return: Void
  */
-void free_env(char **env)
+void frenv(char **env)
 {
 	int i;
 
