@@ -11,7 +11,7 @@ int path_func(char **command)
 	struct stat buf;
 
 	c = get_env("PATH");
-	v = _strtok(c, ":");
+	v = str_tok(c, ":");
 	while (v != NULL)
 	{
 		_path = bld_cmd(*command, v);
@@ -23,7 +23,7 @@ int path_func(char **command)
 			return (0);
 		}
 		free(_path);
-		v = _strtok(NULL, ":");
+		v = str_tok(NULL, ":");
 	}
 	free(c);
 

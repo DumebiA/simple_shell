@@ -43,7 +43,7 @@ void treat_func(char *c, int i, FILE *f, char **argv)
 	char **command;
 	int s = 0;
 
-	command = parse_cmd(c);
+	command = parser(c);
 
 		if (strn_cmp(command[0], "exit", 4) == 0)
 		{

@@ -6,7 +6,7 @@
  * @cmd:Command
  * Return: Void
  */
-void _prerror(char **argv, int c, char **cmd)
+void pr_err(char **argv, int c, char **cmd)
 {
 	char *er = _intochar(c);
 

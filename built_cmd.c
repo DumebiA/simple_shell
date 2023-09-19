@@ -21,7 +21,7 @@ void  exit_cmd(char **command, char *in, char **argv, int i)
 	{
 		if (_alpha(command[1][n++]) != 0)
 		{
-			_prerror(argv, i, command);
+			pr_err(argv, i, command);
 			break;
 		}
 		else

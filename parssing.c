@@ -5,7 +5,7 @@
  * @input:User Input To Parse
  * Return: Array Of Char (Parsed):Simple Shell
  */
-char **parse_cmd(char *input)
+char **parser(char *input)
 {
 	char **tokens;
 	char *token;
@@ -20,11 +20,11 @@ char **parse_cmd(char *input)
 		return (NULL);
 	}
 
-	token = _strtok(input, "\n ");
+	token = str_tok(input, "\n ");
 	for (i = 0; token; i++)
 	{
 		tokens[i] = token;
-		token = _strtok(NULL, "\n ");
+		token = str_tok(NULL, "\n ");
 	}
 	tokens[i] = NULL;
 

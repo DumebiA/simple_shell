@@ -19,14 +19,14 @@ int main(__attribute__((unused)) int argc, char **argv)
 	{
 		counter++;
 		if (isatty(STDIN_FILENO))
-			prompt();
+			prompt_func();
 		input = get_line();
 		if (input[0] == '\0')
 		{
 			continue;
 		}
 		his_tory(input);
-		cmd = parse_cmd(input);
+		cmd = parser(input);
 		if (str_cmp(cmd[0], "exit") == 0)
 		{
 			exit_cmd(cmd, input, argv, counter);

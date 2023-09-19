@@ -3,9 +3,9 @@
 /**
  * prompt - Display Shell Prompt
  */
-void prompt(void)
+void prompt_func(void)
 {
-	PRINTER("$ ");
+	PRINTER("MyShell$ ");
 }
 /**
  * print_error - Display Error Based on Command and How Many Time Shell Looped
@@ -14,7 +14,7 @@ void prompt(void)
  * @argv:Program Name
  * Return: Void
  */
-void print_error(char *input, int counter, char **argv)
+void _error(char *input, int counter, char **argv)
 {
 	char *er;
 

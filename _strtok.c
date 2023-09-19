@@ -1,17 +1,17 @@
 #include "main.h"
 /**
- * check_delim - Checks If A Character Match Any Char *
- * @c: Character To Check
- * @str: String To Check
+ * _delim - Checks there is another char* match
+ * @c: Character
+ * @chk: Checker
  * Return: 1 Succes, 0 Failed
  */
-unsigned int check_delim(char c, const char *str)
+unsigned int _delim(char c, const char *chk)
 {
-	unsigned int i;
+	unsigned int n;
 
-	for (i = 0; str[i] != '\0'; i++)
+	for (n = 0; chk[n] != '\0'; n++)
 	{
-		if (c == str[i])
+		if (c == chk[n])
 			return (1);
 	}
 	return (0);
@@ -23,7 +23,7 @@ unsigned int check_delim(char c, const char *str)
  * @delim: Delimiter
  * Return: Pointer To The Next Token Or NULL
  */
-char *_strtok(char *str, const char *delim)
+char *str_tok(char *str, const char *delim)
 {
 	static char *ts;
 	static char *nt;
@@ -36,7 +36,7 @@ char *_strtok(char *str, const char *delim)
 		return (NULL);
 	for (i = 0; ts[i] != '\0'; i++)
 	{
-		if (check_delim(ts[i], delim) == 0)
+		if (_delim(ts[i], delim) == 0)
 			break;
 	}
 	if (nt[i] == '\0' || nt[i] == '#')
@@ -48,7 +48,7 @@ char *_strtok(char *str, const char *delim)
 	nt = ts;
 	for (i = 0; nt[i] != '\0'; i++)
 	{
-		if (check_delim(nt[i], delim) == 1)
+		if (_delim(nt[i], delim) == 1)
 			break;
 	}
 	if (nt[i] == '\0')

@@ -29,10 +29,13 @@ extern char **environ;
 
 
 
-/**###### STRING FUNCTION ######*/
+/**
+ * STRING FUNCTION
+ *
+ * */
 
-char *_strtok(char *str, const char *tok);
-unsigned int check_delim(char c, const char *str);
+char *str_tok(char *str, const char *tok);
+unsigned int _delim(char c, const char *str);
 char *strn_cpy(char *dest, char *src, int o);
 int str_len(char *c);
 int put_char(char c);
@@ -60,7 +63,7 @@ void free_array(char **input, char *line);
 
 /**###### INPUT Function ######*/
 
-void prompt(void);
+void prompt_func(void);
 void sign_han(int i);
 char *get_line(void);
 
@@ -68,7 +71,7 @@ char *get_line(void);
 
 int path_func(char **command);
 char *get_env(char *o);
-char **parse_cmd(char *cmd);
+char **parser(char *cmd);
 int built_cmd(char **command, int r);
 void read_func(char *fn, char **argv);
 char *bld_cmd(char *c, char *val);
@@ -97,8 +100,8 @@ int showecho(char **cmd);
  */
 void prnt_num(unsigned int i);
 void num_int(int i);
-void print_error(char *line, int c, char **argv);
-void _prerror(char **argv, int c, char **cmd);
+void _error(char *line, int c, char **argv);
+void pr_err(char **argv, int c, char **cmd);
 
 
 /**
