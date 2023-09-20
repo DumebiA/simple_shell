@@ -5,7 +5,7 @@
  */
 void prompt_func(void)
 {
-	PRINTER("MyShell$ ");
+	PRINTER("$ ");
 }
 /**
  * print_error - Display Error Based on Command and How Many Time Shell Looped
