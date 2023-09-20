@@ -1,22 +1,22 @@
 #include "main.h"
 /**
- *  _prerror - Print Custome Error
- * @argv:Program Name
- * @c:Error Count
- * @cmd:Command
+ * pr_err - Print Custome Error
+ * @argv:Program
+ * @i:Count
+ * @command:Command
  * Return: Void
  */
-void pr_err(char **argv, int c, char **cmd)
+void pr_err(char **argv, int i, char **command)
 {
-	char *er = _intochar(c);
+	char *c = _intochar(i);
 
 	PRINTER(argv[0]);
 	PRINTER(": ");
-	PRINTER(er);
+	PRINTER(c);
 	PRINTER(": ");
-	PRINTER(cmd[0]);
+	PRINTER(command[0]);
 	PRINTER(": Illegal number: ");
-	PRINTER(cmd[1]);
+	PRINTER(command[1]);
 	PRINTER("\n");
-	free(er);
+	free(c);
 }

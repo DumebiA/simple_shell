@@ -1,17 +1,23 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-/**###### environ var ######*/
+/**
+ * environment variables
+ */
 
 extern char **environ;
 
-/**##### MACROS ######*/
+/**
+ * MACROS
+ */
 
 #define BUFSIZE 1024
 #define DELIM " \t\r\n\a"
 #define PRINTER(c) (write(STDOUT_FILENO, c, str_len(c)))
 
-/**###### LIBS USED ######*/
+/**
+ * LIBRARY
+ */
 
 #include <stdio.h>
 #include <unistd.h>
@@ -25,16 +31,11 @@ extern char **environ;
 #include <errno.h>
 #include <linux/limits.h>
 
-
-
-
-
 /**
  * STRING FUNCTION
- *
- * */
+ */
 
-char *str_tok(char *str, const char *tok);
+char *str_tok(char *c, const char *del);
 unsigned int _delim(char c, const char *str);
 char *strn_cpy(char *dest, char *src, int o);
 int str_len(char *c);
@@ -46,13 +47,15 @@ int _alpha(int c);
 void reverse_array(char *arr, int len);
 int int_len(int num);
 char *_intochar(unsigned int n);
-char *str_cat(char *dest, char *src);
-char *str_cpy(char *dest, char *src);
+char *str_cat(char *c, char *i);
+char *str_cpy(char *c, char *n);
 char *str_chr(char *s, char c);
-int strn_cmp(const char *s1, const char *s2, size_t n);
-char *str_dup(char *str);
+int strn_cmp(const char *s, const char *l, size_t o);
+char *str_dup(char *s);
 
-/**###### MEMORIE  MANGMENT ####*/
+/**
+ * MEMORY MANGEMENT
+ */
 
 void frenv(char **env);
 void *fill_array(void *a, int el, unsigned int len);
@@ -61,13 +64,17 @@ void *ca_alloc(unsigned int size);
 void *re_alloc(void *ptr, unsigned int old_size, unsigned int new_size);
 void free_array(char **input, char *line);
 
-/**###### INPUT Function ######*/
+/**
+ * INPUT Function
+ */
 
 void prompt_func(void);
 void sign_han(int i);
 char *get_line(void);
 
-/** ###### Command parser and extractor ###*/
+/**
+ * Command parser and extractor
+ */
 
 int path_func(char **command);
 char *get_env(char *o);
@@ -100,9 +107,8 @@ int showecho(char **cmd);
  */
 void prnt_num(unsigned int i);
 void num_int(int i);
-void _error(char *line, int c, char **argv);
-void pr_err(char **argv, int c, char **cmd);
-
+void _error(char *in, int i, char **argv);
+void pr_err(char **argv, int i, char **command);
 
 /**
  * struct bulltin - contain bultin to handle and function to excute

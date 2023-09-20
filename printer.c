@@ -6,13 +6,13 @@
  */
 void prnt_num(unsigned int i)
 {
-	unsigned int n;
-	n = i;
+	unsigned int o;
+	o = i;
 
-	if ((n / 10) > 0)
-		prnt_num(n / 10);
+	if ((o / 10) > 0)
+		prnt_num(o / 10);
 
-	put_char(n % 10 + '0');
+	put_char(o % 10 + '0');
 }
 
 /**
@@ -22,15 +22,15 @@ void prnt_num(unsigned int i)
  */
 void num_int(int i)
 {
-	unsigned int n = i;
+	unsigned int o = i;
 
 	if (i < 0)
 	{
 		put_char('-');
-		n = -n;
+		o = -o;
 	}
-	if ((n / 10) > 0)
-		prnt_num(n / 10);
+	if ((o / 10) > 0)
+		prnt_num(o / 10);
 
-	put_char(n % 10 + '0');
+	put_char(o % 10 + '0');
 }
