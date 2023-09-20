@@ -30,11 +30,12 @@ void read_func(char *fn, char **argv)
 	fclose(f);
 	exit(0);
 }
+
 /**
- * treat_file - PARSE Check Command Fork Wait Excute in Line of File
- * @line: Line From A File
- * @counter:Error Counter
- * @fp:File Descriptor
+ * treat_func - PARSE Check Command Fork Wait Excute in Line of File
+ * @c: Line From A File
+ * @i:Error Counter
+ * @f:File Descriptor
  * @argv:Program Name
  * Return : Excute A line void
  */

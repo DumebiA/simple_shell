@@ -1,18 +1,18 @@
 #include "main.h"
 
 /**
-* _getline - Read The Input By User From Stdin
+* get_line - Read The Input By User From Stdin
 * Return: Input
 */
 char *get_line()
 {
-int i, buffsize = BUFSIZE, rd;
+int i, bs = BUFSIZE, rd;
 char c = 0;
-char *buff = malloc(buffsize);
+char *b = malloc(bs);
 
-	if (buff == NULL)
+	if (b == NULL)
 	{
-		free(buff);
+		free(b);
 		return (NULL);
 	}
 
@@ -22,43 +22,43 @@ char *buff = malloc(buffsize);
 		rd = read(STDIN_FILENO, &c, 1);
 		if (rd == 0)
 		{
-			free(buff);
+			free(b);
 			exit(EXIT_SUCCESS);
 		}
-		buff[i] = c;
-		if (buff[0] == '\n')
+		b[i] = c;
+		if (b[0] == '\n')
 		{
-			free(buff);
+			free(b);
 			return ("\0");
 		}
-		if (i >= buffsize)
+		if (i >= bs)
 		{
-			buff = re_alloc(buff, buffsize, buffsize + 1);
-			if (buff == NULL)
+			b = re_alloc(b, bs, bs + 1);
+			if (b == NULL)
 			{
 				return (NULL);
 			}
 		}
 	}
-	buff[i] = '\0';
-	hash_tag(buff);
-	return (buff);
+	b[i] = '\0';
+	hash_tag(b);
+	return (b);
 }
 
 /**
- * hashtag_handle - remove everything after #
- * @buff: input;
+ * hash_tag - remove everything after #
+ * @buf: input;
  * Return:void
  */
-void hash_tag(char *buff)
+void hash_tag(char *buf)
 {
 	int i;
 
-		for (i = 0; buff[i] != '\0'; i++)
+		for (i = 0; buf[i] != '\0'; i++)
 		{
-			if (buff[i] == '#')
+			if (buf[i] == '#')
 			{
-			buff[i] = '\0';
+			buf[i] = '\0';
 			break;
 			}
 	}

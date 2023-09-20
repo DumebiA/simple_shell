@@ -8,6 +8,7 @@
 int str_cmp(char *s, char *c)
 {
 	int x = 0, i, l1, l2;
+
 	l1 = str_len(s);
 	l2 = str_len(c);
 

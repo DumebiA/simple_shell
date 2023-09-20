@@ -11,7 +11,7 @@ int built_cmd(char **command, int r)
 {
 	 bul_t bi[] = {
 		{"cd", cd_cmd},
-		{"env", env_cmd},
+		{"env", _env},
 		{"help", help_cmd},
 		{"echo", echo_cmd},
 		{"history", display_his},
@@ -31,9 +31,8 @@ int built_cmd(char **command, int r)
 }
 /**
  * check_cmd - Excute Simple Shell Command (Fork,Wait,Excute)
- *
- * @cmd:Parsed Command
- * @input: User Input
+ * @command:Parsed Command
+ * @in: User Input
  * @c:Shell Excution Time Case of Command Not Found
  * @argv:Program Name
  * Return: 1 Case Command Null -1 Wrong Command 0 Command Excuted

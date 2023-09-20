@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * path_cmd -  Search In $PATH For Excutable Command
+ * path_func -  Search In $PATH For Excutable Command
  * @command: Parsed Input
  * Return: 1  Failure  0  Success.
  */

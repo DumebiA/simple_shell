@@ -1,41 +1,41 @@
 #include "main.h"
 /**
- * history - Fill File By User Input
- * @input: User Input
+ * his_tory - Fill File By User Input
+ * @in: User Input
  * Return: -1 Fail 0 Succes
  */
-int his_tory(char *input)
+int his_tory(char *in)
 {
-	char *filename = ".simple_shell_history";
-	ssize_t fd, w;
-	int len = 0;
+	char *fn = ".simple_shell_history";
+	ssize_t f, w;
+	int length = 0;
 
-	if (!filename)
+	if (!fn)
 		return (-1);
-	fd = open(filename, O_CREAT | O_RDWR | O_APPEND, 00600);
-	if (fd < 0)
+	f = open(fn, O_CREAT | O_RDWR | O_APPEND, 00600);
+	if (f < 0)
 		return (-1);
-	if (input)
+	if (in)
 	{
-		while (input[len])
-			len++;
-		w = write(fd, input, len);
+		while (in[length])
+			length++;
+		w = write(f, in, length);
 		if (w < 0)
 			return (-1);
 	}
 	return (1);
 }
 /**
- * free_env - Free Enviroment Variable Array
- * @env:  Environment variables.
+ * frenv - Free Env
+ * @n:  Environment variables.
  * Return: Void
  */
-void frenv(char **env)
+void frenv(char **n)
 {
 	int i;
 
-	for (i = 0; env[i]; i++)
+	for (i = 0; n[i]; i++)
 	{
-		free(env[i]);
+		free(n[i]);
 	}
 }

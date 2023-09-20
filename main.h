@@ -54,10 +54,10 @@ int strn_cmp(const char *s, const char *l, size_t o);
 char *str_dup(char *s);
 
 /**
- * MEMORY MANGEMENT
+ * MEMORY
  */
 
-void frenv(char **env);
+void frenv(char **n);
 void *fill_array(void *a, int el, unsigned int len);
 char *mem_cpy(char *dest, char *src, unsigned int n);
 void *ca_alloc(unsigned int size);
@@ -65,7 +65,7 @@ void *re_alloc(void *ptr, unsigned int old_size, unsigned int new_size);
 void free_array(char **input, char *line);
 
 /**
- * INPUT Function
+ * INPUT
  */
 
 void prompt_func(void);
@@ -73,7 +73,7 @@ void sign_han(int i);
 char *get_line(void);
 
 /**
- * Command parser and extractor
+ * PARSER
  */
 
 int path_func(char **command);
@@ -88,23 +88,18 @@ int check_cmd(char **command, char *in, int c, char **argv);
 void treat_func(char *line, int counter, FILE *fd, char **argv);
 void exit_file(char **cmd, char *line, FILE *fd);
 
-/**
- * BUILT INs
- */
 
 void hash_tag(char *buff);
-int his_tory(char *input);
-int display_his(char **cmd, int er);
-int env_cmd(char **cmd, int er);
+int his_tory(char *in);
+int display_his(char **c, int s);
+int _env(char **command, int r);
 int cd_cmd(char **command, int r);
 int help_cmd(char **command, int r);
 int echo_cmd(char **command, int i);
 void exit_cmd(char **command, char *in, char **argv, int i);
 int showecho(char **command);
 
-/**
- * error handle and Printer
- */
+
 void prnt_num(unsigned int i);
 void num_int(int i);
 void _error(char *in, int i, char **argv);

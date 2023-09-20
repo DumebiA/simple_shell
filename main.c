@@ -47,9 +47,8 @@ int main(__attribute__((unused)) int argc, char **argv)
 	return (statue);
 }
 /**
- * check_builtin - check builtin
- *
- * @cmd:command to check
+ * _builtin - check builtin
+ * @c:command
  * Return: 0 Succes -1 Fail
  */
 int _builtin(char **c)
@@ -76,8 +75,8 @@ int _builtin(char **c)
 	return (-1);
 }
 /**
- * creat_envi - Creat Array of Enviroment Variable
- * @envi: Array of Enviroment Variable
+ * create_env - Creat Enviroment Variable
+ * @env: Enviroment Variable
  * Return: Void
  */
 void create_env(char **env)

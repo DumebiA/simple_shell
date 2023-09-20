@@ -1,11 +1,11 @@
 #include "main.h"
 
 /**
- **_realloc -  Reallocates A Memory Block Using Malloc And Free
+ **re_alloc -  Reallocates A Memory Block
  *@ptr: Pointer
- *@old_size: Previous Size Of The Pointer
- *@new_size: New Size Of The Pointer
- *Return: Void Pointer Rellocated Memory
+ *@old_size: Old Size
+ *@new_size: New Size
+ *Return: Void
  */
 void *re_alloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
@@ -35,7 +35,7 @@ void *re_alloc(void *ptr, unsigned int old_size, unsigned int new_size)
 
 }
 /**
- * free_all - Free Array Of Char Pointer And Char Pointer
+ * free_array - Free Array Of Char Pointer And Char Pointer
  * @cmd:Array Pointer
  * @line:Char Pointer
  * Return: Void
@@ -49,7 +49,7 @@ void free_array(char **cmd, char *line)
 }
 
 /**
- * _memcpy - Copy Byte From Source To Destination
+ * mem_cpy - Copy Byte From Source To Destination
  * @dest: Destination Pointer
  * @src: Source Pointer
  * @n: Size (How Much You Will Copy)
@@ -66,7 +66,7 @@ char *mem_cpy(char *dest, char *src, unsigned int n)
 	return (dest);
 }
 /**
- * fill_an_array - Fill An Array By Constant Byte
+ * fill_array - Fill An Array By Constant Byte
  * @a:Void Pointer
  * @el: Int
  * @len:Length Int
@@ -86,7 +86,7 @@ void *fill_array(void *a, int el, unsigned int len)
 	return (a);
 }
 /**
- * _calloc -  Allocates Memory For An Array, Using Malloc.
+ * ca_alloc -  Allocates Memory For An Array, Using Malloc.
  * @size: Size
  * Return: Void Pointer
  */

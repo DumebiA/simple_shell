@@ -7,6 +7,7 @@
 void prnt_num(unsigned int i)
 {
 	unsigned int o;
+
 	o = i;
 
 	if ((o / 10) > 0)
