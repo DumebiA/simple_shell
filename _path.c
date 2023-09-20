@@ -2,7 +2,7 @@
 
 /**
  * path_cmd -  Search In $PATH For Excutable Command
- * @cmd: Parsed Input
+ * @command: Parsed Input
  * Return: 1  Failure  0  Success.
  */
 int path_func(char **command)
@@ -31,8 +31,8 @@ int path_func(char **command)
 }
 /**
  * bld_cmd - Build Command
- * @token: Excutable Command
- * @value: Dirctory Conatining Command
+ * @c: Excutable Command
+ * @val: Dirctory Conatining Command
  *
  * Return: Parsed Full Path Of Command Or NULL Case Failed
  */

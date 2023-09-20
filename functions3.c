@@ -1,106 +1,108 @@
 #include "main.h"
-
 /**
- * _strcmp - Compare Two String
- * @s1:String 1
- * @s2:String 2
- * Return: 0 If Identical Otherwise How Much Diffrent
+ * str_cmp - Compare Strings
+ * @s:String
+ * @c:String
+ * Return: x for comparism
  */
-int str_cmp(char *s1, char *s2)
+int str_cmp(char *s, char *c)
 {
-int cmp = 0, i, len1, len2;
-len1 = str_len(s1);
-len2 = str_len(s2);
+	int x = 0, i, len1, len2;
+	l1 = str_len(s);
+	l2 = str_len(c);
 
-	if (s1 == NULL || s2 == NULL)
+	if (s == NULL || c == NULL)
 		return (1);
-	if (len1 != len2)
+	if (l1 != l2)
 		return (1);
-	for (i = 0; s1[i]; i++)
+	for (i = 0; s[i]; i++)
 	{
-		if (s1[i] != s2[i])
+		if (s[i] != c[i])
 		{
-			cmp = s1[i] - s2[i];
+			x = s[i] - c[i];
 			break;
 		}
 		else
 			continue;
 	}
-	return (cmp);
+	return (x);
 }
+
 /**
- * _isalpha - Check if Alphabtic
- *@c: Character
+ * _alpha - Check if Alphabtic
+ *@i: Character
  * Return: 1 If True 0 If Not
  */
-int _alpha(int c)
+int _alpha(int i)
 {
-if (((c >= 97) && (c <= 122)) || ((c >= 65) && (c <= 90)))
-{
-return (1);
+	if (((i >= 97) && (i <= 122)) || ((i >= 65) && (i <= 90)))
+	{
+		return (1);
+	}
+	else
+	{
+		return (0);
+	}
 }
-else
-{
-return (0);
-}
-}
+
 /**
- * _itoa - Convert Integer To Char
- * @n: Int To Convert
+ * _intochar - Convert Integer To Char
+ * @n: Integar
  * Return: Char Pointer
  */
 char *_intochar(unsigned int n)
 {
-	int len = 0, i = 0;
-	char *s;
+	int l = 0, x = 0;
+	char *c;
 
-	len = int_len(n);
-	s = malloc(len + 1);
-	if (!s)
+	l = int_len(n);
+	c = malloc(l + 1);
+	if (!c)
 		return (NULL);
-	*s = '\0';
+	*c = '\0';
 	while (n / 10)
 	{
-		s[i] = (n % 10) + '0';
+		c[x] = (n % 10) + '0';
 		n /= 10;
-		i++;
+		x++;
 	}
-	s[i] = (n % 10) + '0';
-	reverse_array(s, len);
-	s[i + 1] = '\0';
+	c[x] = (n % 10) + '0';
+	reverse_array(c, l);
+	c[x + 1] = '\0';
 	return (s);
 }
+
 /**
- *  array_rev - Reverse Array
- * @arr:Array To Reverse
- * @len:Length Of Array
+ * reverse_array - Reverse Array
+ * @a:Array To Reverse
+ * @l:Length Of Array
  * Return: Void(Reverse Array)
  */
-void reverse_array(char *arr, int len)
+void reverse_array(char *a, int l)
 {
 	int i;
-	char tmp;
+	char t;
 
 	for (i = 0; i < (len / 2); i++)
 	{
-		tmp = arr[i];
-		arr[i] = arr[(len - 1) - i];
-		arr[(len - 1) - i] = tmp;
+		t = a[i];
+		a[i] = a[(l - 1) - i];
+		a[(l - 1) - i] = t;
 	}
 }
 /**
- * intlen - Determine Length Of Int
- * @num: Given Int
- * Return: Length Of Int
+ * int_len - Determine Length
+ * @n: Number
+ * Return: Length
  */
-int int_len(int num)
+int int_len(int n)
 {
-	int len = 0;
+	int l = 0;
 
-	while (num != 0)
+	while (n != 0)
 	{
-		len++;
-		num /= 10;
+		l++;
+		n /= 10;
 	}
-	return (len);
+	return (l);
 }

@@ -42,10 +42,10 @@ int str_len(char *c);
 int put_char(char c);
 int conv_int(char *c);
 void put_str(char *c);
-int str_cmp(char *s1, char *s2);
-int _alpha(int c);
-void reverse_array(char *arr, int len);
-int int_len(int num);
+int str_cmp(char *s, char *c);
+int _alpha(int i);
+void reverse_array(char *a, int l);
+int int_len(int n);
 char *_intochar(unsigned int n);
 char *str_cat(char *c, char *i);
 char *str_cpy(char *c, char *n);
@@ -100,7 +100,7 @@ int cd_cmd(char **command, int r);
 int help_cmd(char **command, int r);
 int echo_cmd(char **command, int i);
 void exit_cmd(char **command, char *in, char **argv, int i);
-int showecho(char **cmd);
+int showecho(char **command);
 
 /**
  * error handle and Printer
