@@ -7,7 +7,7 @@
  */
 int str_cmp(char *s, char *c)
 {
-	int x = 0, i, len1, len2;
+	int x = 0, i, l1, l2;
 	l1 = str_len(s);
 	l2 = str_len(c);
 
@@ -69,7 +69,7 @@ char *_intochar(unsigned int n)
 	c[x] = (n % 10) + '0';
 	reverse_array(c, l);
 	c[x + 1] = '\0';
-	return (s);
+	return (c);
 }
 
 /**
@@ -83,7 +83,7 @@ void reverse_array(char *a, int l)
 	int i;
 	char t;
 
-	for (i = 0; i < (len / 2); i++)
+	for (i = 0; i < (l / 2); i++)
 	{
 		t = a[i];
 		a[i] = a[(l - 1) - i];
