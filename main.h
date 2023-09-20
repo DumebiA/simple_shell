@@ -58,11 +58,11 @@ char *str_dup(char *s);
  */
 
 void frenv(char **n);
-void *fill_array(void *a, int el, unsigned int len);
-char *mem_cpy(char *dest, char *src, unsigned int n);
-void *ca_alloc(unsigned int size);
-void *re_alloc(void *ptr, unsigned int old_size, unsigned int new_size);
-void free_array(char **input, char *line);
+void *fill_array(void *a, int w, unsigned int l);
+char *mem_cpy(char *d, char *r, unsigned int n);
+void *ca_alloc(unsigned int s);
+void *re_alloc(void *p, unsigned int os, unsigned int ns);
+void free_array(char **command, char *c);
 
 /**
  * INPUT

@@ -2,107 +2,107 @@
 
 /**
  **re_alloc -  Reallocates A Memory Block
- *@ptr: Pointer
- *@old_size: Old Size
- *@new_size: New Size
+ *@p: Pointer
+ *@os: Old Size
+ *@ns: New Size
  *Return: Void
  */
-void *re_alloc(void *ptr, unsigned int old_size, unsigned int new_size)
+void *re_alloc(void *p, unsigned int os, unsigned int ns)
 {
-	void *result;
+	void *i;
 
-	if (new_size == old_size)
-		return (ptr);
-	if (new_size == 0 && ptr)
+	if (ns == os)
+		return (p);
+	if (ns == 0 && p)
 	{
-		free(ptr);
+		free(p);
 		return (NULL);
 	}
-	result = malloc(new_size);
-	if (result == NULL)
+	i = malloc(ns);
+	if (i == NULL)
 		return (NULL);
-	if (ptr == NULL)
+	if (p == NULL)
 	{
-		fill_array(result, '\0', new_size);
-		free(ptr);
+		fill_array(i, '\0', ns);
+		free(p);
 	}
 	else
 	{
-		mem_cpy(result, ptr, old_size);
-		free(ptr);
+		mem_cpy(i, p, os);
+		free(p);
 	}
-	return (result);
+	return (i);
 
 }
 /**
  * free_array - Free Array Of Char Pointer And Char Pointer
- * @cmd:Array Pointer
- * @line:Char Pointer
+ * @command:Array Pointer
+ * @c:Char Pointer
  * Return: Void
  */
-void free_array(char **cmd, char *line)
+void free_array(char **command, char *c)
 {
-	free(cmd);
-	free(line);
-	cmd = NULL;
-	line = NULL;
+	free(command);
+	free(c);
+	command = NULL;
+	c = NULL;
 }
 
 /**
  * mem_cpy - Copy Byte From Source To Destination
- * @dest: Destination Pointer
- * @src: Source Pointer
+ * @d: Destination Pointer
+ * @r: Source Pointer
  * @n: Size (How Much You Will Copy)
  *Return: Void Pointer
  */
-char *mem_cpy(char *dest, char *src, unsigned int n)
+char *mem_cpy(char *d, char *r, unsigned int n)
 {
 	unsigned int i;
 
 	for (i = 0; i < n; i++)
 	{
-		dest[i] = src[i];
+		d[i] = r[i];
 	}
-	return (dest);
+	return (d);
 }
 /**
  * fill_array - Fill An Array By Constant Byte
  * @a:Void Pointer
- * @el: Int
- * @len:Length Int
+ * @w: Int
+ * @l:Length Int
  *Return: Void Pointer
  */
-void *fill_array(void *a, int el, unsigned int len)
+void *fill_array(void *a, int w, unsigned int l)
 {
-	char *p = a;
+	char *c = a;
 	unsigned int i = 0;
 
-	while (i < len)
+	while (i < l)
 	{
-		*p = el;
-		p++;
+		*c = w;
+		c++;
 		i++;
 	}
 	return (a);
 }
 /**
  * ca_alloc -  Allocates Memory For An Array, Using Malloc.
- * @size: Size
+ * @s: Size
  * Return: Void Pointer
  */
-void *ca_alloc(unsigned int size)
+void *ca_alloc(unsigned int s)
 {
-	char *a;
+	char *c;
 	unsigned int i;
 
-	if (size == 0)
+	if (s == 0)
 	return (NULL);
-	a = malloc(size);
-	if (a == NULL)
+	c = malloc(s);
+	if (c == NULL)
 	return (NULL);
-	for (i = 0; i < size; i++)
+	for (i = 0; i < s; i++)
 	{
-		a[i] = '\0';
+		c[i] = '\0';
 	}
-	return (a);
+	return (c);
 }
